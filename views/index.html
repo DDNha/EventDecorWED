@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Trang chủ - Dịch vụ sự kiện{% endblock title %}
+
+{% block header %}
+<div class="container header-page d-flex flex-column justify-content-center align-items-center text-center py-5">
+  <h1 class="fw-bold text-white display-4 mb-3">Kết nối dịch vụ - Kiến tạo khoảnh khắc</h1>
+  <p class="text-white fs-5 mb-4">Nền tảng tìm kiếm và đặt dịch vụ sự kiện trọn gói hàng đầu</p>
+  <a href="/services" class="btn btn-danger btn-lg rounded-pill px-4">Khám phá dịch vụ</a>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-uppercase" style="color: #242565;">Dịch vụ nổi bật</h2>
+    <p class="text-muted">Lựa chọn giải pháp tối ưu cho sự kiện của bạn</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center p-4">
+          <div class="mb-3">
+            <i class="fa-solid fa-wand-magic-sparkles fa-3x text-danger"></i>
+          </div>
+          <h5 class="card-title fw-bold">Trang trí sự kiện</h5>
+          <p class="card-text text-muted">Thiết kế không gian sân khấu, background sang trọng và hiện đại.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center p-4">
+          <div class="mb-3">
+            <i class="fa-solid fa-music fa-3x text-danger"></i>
+          </div>
+          <h5 class="card-title fw-bold">Âm thanh - Ánh sáng</h5>
+          <p class="card-text text-muted">Hệ thống thiết bị âm thanh, hiệu ứng ánh sáng chuyên nghiệp.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center p-4">
+          <div class="mb-3">
+            <i class="fa-solid fa-users fa-3x text-danger"></i>
+          </div>
+          <h5 class="card-title fw-bold">Nhân sự sự kiện</h5>
+          <p class="card-text text-muted">Cung cấp MC, PG, ca sĩ, vũ đoàn chuyên nghiệp cho mọi quy mô.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

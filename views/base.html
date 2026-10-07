@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Sự kiện dịch vụ{% endblock %}</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Custom CSS Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/home.css" />
+  <link rel="stylesheet" href="/css/about.css" />
+  <link rel="stylesheet" href="/css/contact.css" />
+  <link rel="stylesheet" href="/css/events.css" />
+  <link rel="stylesheet" href="/css/register.css" />
+</head>
+<body>
+<header id="top">
+  {% include "navbar.html" %}
+  {% block header %}{% endblock header %}
+</header>
+
+<main>
+  {% block content %}{% endblock content %}
+</main>
+
+<footer class="text-center text-lg-start text-white">
+  <section class="items-footer">
+    <div class="container text-center text-md-start mt-5">
+      <div class="row mt-3">
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Kết nối dịch vụ - Kiến tạo khoảnh khắc
+          </h6>
+        </div>
+
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">Liên kết nhanh</h6>
+          <p><a href="/" class="text-reset">Trang chủ</a></p>
+          <p><a href="/services" class="text-reset">Dịch vụ</a></p>
+          <p><a href="#" class="text-reset">Đối tác</a></p>
+          <p><a href="/about" class="text-reset">Về chúng tôi</a></p>
+        </div>
+
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">Hỗ trợ</h6>
+          <p><a href="#!" class="text-reset">Chính sách bảo mật</a></p>
+          <p><a href="#!" class="text-reset">Điều khoản dịch vụ</a></p>
+          <p><a href="/contact" class="text-reset">Liên hệ</a></p>
+        </div>
+
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">Theo dõi chúng tôi</h6>
+          <p><i class="fa-brands fa-facebook me-2" style="color: rgb(73, 28, 204)"></i> Facebook</p>
+          <p><i class="fa-brands fa-twitter me-2" style="color: rgb(73, 28, 204)"></i> Twitter</p>
+          <p><i class="fa-brands fa-linkedin me-2" style="color: rgb(73, 28, 204)"></i> LinkedIn</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05)">
+    © 2026 Copyright: <a class="text-reset fw-bold" href="/">Sự kiện dịch vụ</a>
+  </div>
+</footer>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
