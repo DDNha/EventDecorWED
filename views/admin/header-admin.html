@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header Admin</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+  <style>
+    *, ::before, ::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .icon-slot {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body class="m-0 p-0 bg-[#f8fafc] overflow-x-hidden">
+
+  <!-- HEADER -->
+  <header class="h-16 w-full bg-white border-b border-slate-200 px-6 flex items-center justify-between z-10 shadow-sm gap-4">
+    
+    <!-- trái: tìm kiếm -->
+    <div class="flex-1 max-w-md min-w-0">
+      <div class="relative flex items-center w-full">
+        <span class="icon-slot absolute left-3 text-slate-400 pointer-events-none"></span>
+        <input 
+          type="text" 
+          placeholder="Tìm kiếm đối tác, dịch vụ, báo cáo ..." 
+          class="w-full bg-[#f1f5f9] hover:bg-[#e2e8f0]/80 focus:bg-[#e2e8f0] text-slate-700 text-sm rounded-xl pl-10 pr-4 py-2 focus:outline-none transition-all placeholder:text-slate-400"
+        >
+      </div>
+    </div>
+
+    <!--  phải-->
+    <div class="flex items-center gap-3.5 flex-shrink-0">
+      
+      <!--lịch -->
+      <button type="button" title="Lịch" class="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all shadow-sm flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+          <path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-188.5-11.5Q280-423 280-440t11.5-28.5Q303-480 320-480t28.5 11.5Q360-457 360-440t-11.5 28.5Q337-400 320-400t-28.5-11.5ZM640-400q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-188.5-11.5Q280-263 280-280t11.5-28.5Q303-320 320-320t28.5 11.5Q360-297 360-280t-11.5 28.5Q337-240 320-240t-28.5-11.5ZM640-240q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/>
+        </svg>
+      </button>
+
+      <!-- thông báo -->
+      <div class="relative flex-shrink-0">
+        <button type="button" title="Thông báo" class="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+            <path d="M160-200v-80h80v-280q0-83 50-147.5T420-792v-28q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v28q80 20 130 84.5T720-560v280h80v80H160Zm320-300Zm0 420q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80ZM320-280h320v-280q0-66-47-113t-113-47q-66 0-113 47t-47 113v280Z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Khối Info Admin -->
+      <div class="flex items-center gap-3 pl-3 border-l border-slate-200 flex-shrink-0">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0284c7] to-[#0f766e] flex items-center justify-center text-white font-semibold text-sm shadow-sm ring-1 ring-black/5 flex-shrink-0">
+          <span>AN</span>
+        </div>
+
+        <div class="flex flex-col text-left whitespace-nowrap">
+          <span id="admin-name" class="text-sm font-semibold text-slate-800 leading-tight">
+            Admin 
+          </span>
+          <span id="admin-role" class="text-[11px] font-medium text-slate-500 leading-tight mt-0.5">
+            cấp độ admin
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+</body>
+</html>
