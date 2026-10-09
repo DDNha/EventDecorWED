@@ -3,56 +3,262 @@
 {% block title %}Trang chủ - Dịch vụ sự kiện{% endblock title %}
 
 {% block header %}
-<div class="container header-page d-flex flex-column justify-content-center align-items-center text-center py-5">
-  <h1 class="fw-bold text-white display-4 mb-3">Kết nối dịch vụ - Kiến tạo khoảnh khắc</h1>
-  <p class="text-white fs-5 mb-4">Nền tảng tìm kiếm và đặt dịch vụ sự kiện trọn gói hàng đầu</p>
-  <a href="/services" class="btn btn-danger btn-lg rounded-pill px-4">Khám phá dịch vụ</a>
+<div class="container my-4">
+  <div class="header-page rounded-4 d-flex flex-column justify-content-center align-items-center text-center py-5 px-3"
+       style="min-height: 460px;
+              background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('/img/hero-img.png');
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;">
+
+    <h1 class="fw-bold text-white display-4 mb-3"
+        style="text-shadow: 0 2px 6px rgba(0,0,0,.5);">
+      Kết nối dịch vụ - Kiến tạo khoảnh khắc
+    </h1>
+    <p class="text-white fs-5 mb-4">
+      Nền tảng tìm kiếm và đặt dịch vụ sự kiện trọn gói hàng đầu
+    </p>
+    <a href="/services" class="btn btn-danger btn-lg rounded-pill px-4">
+      Khám phá dịch vụ
+    </a>
+  </div>
 </div>
 {% endblock header %}
 
 {% block content %}
-<div class="container my-5">
-  <div class="text-center mb-5">
-    <h2 class="fw-bold text-uppercase" style="color: #242565;">Dịch vụ nổi bật</h2>
-    <p class="text-muted">Lựa chọn giải pháp tối ưu cho sự kiện của bạn</p>
+<link rel="stylesheet" href="/css/home.css">
+
+<section class="featured-section">
+  <div class="featured-band"></div>
+
+  <div class="container">
+    <h2 class="featured-tab">Dịch vụ nổi bật</h2>
+
+    <div class="row g-4">
+
+      <!-- Card 1 -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <article class="service-card">
+          <img class="thumb" src="/img/birthday.png" alt="Gói trang trí sinh nhật cao cấp">
+          <div class="body">
+            <h3 class="service-title">Gói trang trí sinh nhật cao cấp</h3>
+            <div class="service-rating">
+              <i class="fa-solid fa-star"></i>
+              <span class="score">4.6</span>
+              <span class="count">(125 đánh giá)</span>
+            </div>
+            <div class="service-price">1.500.000 VNĐ</div>
+            <div class="service-actions">
+              <a href="/services/1" class="btn-detail">Xem chi tiết</a>
+              <button type="button" class="btn-save" aria-label="Lưu dịch vụ"><i class="fa-regular fa-bookmark"></i></button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <article class="service-card">
+          <img class="thumb" src="/img/BanhvaSuKien.png" alt="Gói làm bánh và tiệc cho sự kiện">
+          <div class="body">
+            <h3 class="service-title">Gói làm bánh &amp; tiệc cho sự kiện</h3>
+            <div class="service-rating">
+              <i class="fa-solid fa-star"></i>
+              <span class="score">4.9</span>
+              <span class="count">(14 đánh giá)</span>
+            </div>
+            <div class="service-price">800.000 VNĐ</div>
+            <div class="service-actions">
+              <a href="/services/2" class="btn-detail">Xem chi tiết</a>
+              <button type="button" class="btn-save" aria-label="Lưu dịch vụ"><i class="fa-regular fa-bookmark"></i></button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <article class="service-card">
+          <img class="thumb" src="/img/anhMC.png" alt="Gói MC chuyên nghiệp">
+          <div class="body">
+            <h3 class="service-title">Gói MC chuyên nghiệp</h3>
+            <div class="service-rating">
+              <i class="fa-solid fa-star"></i>
+              <span class="score">4.6</span>
+              <span class="count">(125 đánh giá)</span>
+            </div>
+            <div class="service-price">3.000.000 VNĐ</div>
+            <div class="service-actions">
+              <a href="/services/3" class="btn-detail">Xem chi tiết</a>
+              <button type="button" class="btn-save" aria-label="Lưu dịch vụ"><i class="fa-regular fa-bookmark"></i></button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <article class="service-card">
+          <img class="thumb" src="/img/endYear.png" alt="Gói trang trí tiệc cuối năm">
+          <div class="body">
+            <h3 class="service-title">Gói trang trí tiệc cuối năm</h3>
+            <div class="service-rating">
+              <i class="fa-solid fa-star"></i>
+              <span class="score">4.6</span>
+              <span class="count">(125 đánh giá)</span>
+            </div>
+            <div class="service-price">4.000.000 VNĐ</div>
+            <div class="service-actions">
+              <a href="/services/4" class="btn-detail">Xem chi tiết</a>
+              <button type="button" class="btn-save" aria-label="Lưu dịch vụ"><i class="fa-regular fa-bookmark"></i></button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <article class="service-card">
+          <img class="thumb" src="/img/quayPhim.png" alt="Gói chụp ảnh và quay phim sự kiện">
+          <div class="body">
+            <h3 class="service-title">Gói chụp ảnh &amp; quay phim sự kiện</h3>
+            <div class="service-rating">
+              <i class="fa-solid fa-star"></i>
+              <span class="score">4.6</span>
+              <span class="count">(125 đánh giá)</span>
+            </div>
+            <div class="service-price">2.000.000 VNĐ</div>
+            <div class="service-actions">
+              <a href="/services/5" class="btn-detail">Xem chi tiết</a>
+              <button type="button" class="btn-save" aria-label="Lưu dịch vụ"><i class="fa-regular fa-bookmark"></i></button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="col-12 col-sm-6 col-lg-4">
+        <article class="service-card">
+          <img class="thumb" src="/img/hoaCuoi.png" alt="Gói và phụ kiện hoa cho sự kiện">
+          <div class="body">
+            <h3 class="service-title">Gói &amp; phụ kiện hoa cho sự kiện</h3>
+            <div class="service-rating">
+              <i class="fa-solid fa-star"></i>
+              <span class="score">4.6</span>
+              <span class="count">(125 đánh giá)</span>
+            </div>
+            <div class="service-price">300.000 VNĐ</div>
+            <div class="service-actions">
+              <a href="/services/6" class="btn-detail">Xem chi tiết</a>
+              <button type="button" class="btn-save" aria-label="Lưu dịch vụ"><i class="fa-regular fa-bookmark"></i></button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="/services" class="btn-viewall">Xem tất cả</a>
+    </div>
   </div>
+</section>
 
-  <div class="row g-4">
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="card-body text-center p-4">
-          <div class="mb-3">
-            <i class="fa-solid fa-wand-magic-sparkles fa-3x text-danger"></i>
+<section class="partners-section">
+  <div class="container">
+    <h2 class="partners-heading">Đối tác nổi bật</h2>
+    <p class="partners-sub">Các đối tác uy tín chất lượng được nhiều khách hàng tin tưởng</p>
+
+    <div class="row g-4">
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <a href="/partners/1" class="partner-card">
+          <div class="partner-logo-wrap">
+            <img src="/img/HBGevent.png" alt="Logo HoaBinh Events">
           </div>
-          <h5 class="card-title fw-bold">Trang trí sự kiện</h5>
-          <p class="card-text text-muted">Thiết kế không gian sân khấu, background sang trọng và hiện đại.</p>
-        </div>
+          <h3 class="partner-name">HoaBinh Events</h3>
+          <p class="partner-desc">
+            Công ty tổ chức sự kiện uy tín chuyên cung cấp trọn gói nhân sự, kịch bản,
+            trang trí tiệc sinh nhật, tiệc tri ân và Year End Party cho khách hàng cá nhân
+            lẫn doanh nghiệp
+          </p>
+        </a>
       </div>
+
+      <!-- Đối tác 2 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <a href="/partners/2" class="partner-card">
+          <div class="partner-logo-wrap">
+            <img src="/img/PDesigh.png" alt="Logo PartyDesign VN">
+          </div>
+          <h3 class="partner-name">PartyDesign VN</h3>
+          <p class="partner-desc">
+            Chuyên gia thiết kế, trang trí và tổ chức tiệc thôi nôi, sinh nhật cho bé
+            cùng các dịch vụ decor sự kiện, kỷ niệm thành lập doanh nghiệp tại khu vực phía Nam
+          </p>
+        </a>
+      </div>
+
+      <!-- Đối tác 3 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <a href="/partners/3" class="partner-card">
+          <div class="partner-logo-wrap">
+            <img src="/img/kingMedia.png" alt="Logo King Event Media">
+          </div>
+          <h3 class="partner-name">King Event Media</h3>
+          <p class="partner-desc">
+            Đối tác nổi bật trong lĩnh vực trang trí bong bóng nghệ thuật, backdrop và
+            tổ chức trọn gói các bữa tiệc sinh nhật, thôi nôi, sự kiện kỷ niệm
+          </p>
+        </a>
+      </div>
+
     </div>
 
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="card-body text-center p-4">
-          <div class="mb-3">
-            <i class="fa-solid fa-music fa-3x text-danger"></i>
-          </div>
-          <h5 class="card-title fw-bold">Âm thanh - Ánh sáng</h5>
-          <p class="card-text text-muted">Hệ thống thiết bị âm thanh, hiệu ứng ánh sáng chuyên nghiệp.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="card-body text-center p-4">
-          <div class="mb-3">
-            <i class="fa-solid fa-users fa-3x text-danger"></i>
-          </div>
-          <h5 class="card-title fw-bold">Nhân sự sự kiện</h5>
-          <p class="card-text text-muted">Cung cấp MC, PG, ca sĩ, vũ đoàn chuyên nghiệp cho mọi quy mô.</p>
-        </div>
-      </div>
+    <div class="text-center mt-5">
+      <a href="/partners" class="btn-viewall">Xem tất cả</a>
     </div>
   </div>
-</div>
+</section>
+<section class="container mb-5">
+  <div class="about_me d-flex align-items-center mx-auto">
+
+    <div>
+      <h3 class="fw-bold fs-6 mb-3">Tại sao chọn nền tảng chúng tôi ?</h3>
+      <p class="mb-0 small">
+        Chúng tôi mang đến trải nghiệm đặt dịch vụ sự kiện dễ dàng, minh bạch và an toàn
+      </p>
+    </div>
+
+    <div class="text_about_me">
+      <i class="fa-solid fa-magnifying-glass icon mb-2"></i>
+      <h4 class="fw-bold fs-6 mb-1">Dễ dàng</h4>
+      <p class="mb-0 small">Dịch vụ đa dạng</p>
+    </div>
+
+    <div class="text_about_me">
+      <i class="fa-regular fa-star icon mb-2"></i>
+      <h4 class="fw-bold fs-6 mb-1">Thực tế</h4>
+      <p class="mb-0 small">Từ trải nghiệm khách hàng</p>
+    </div>
+
+    <div class="text_about_me">
+      <i class="fa-regular fa-heart icon mb-2"></i>
+      <h4 class="fw-bold fs-6 mb-1">Tận tâm</h4>
+      <p class="mb-0 small">Luôn đồng hành cùng bạn</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Bấm bookmark để bật/tắt trạng thái đã lưu
+  document.querySelectorAll('.featured-section .btn-save').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var icon = btn.querySelector('i');
+      icon.classList.toggle('fa-regular');
+      icon.classList.toggle('fa-solid');
+    });
+  });
+</script>
 {% endblock content %}
