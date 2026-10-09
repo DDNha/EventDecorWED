@@ -50,6 +50,10 @@ app.get('/register', (req, res) => {
   res.render('register.html');
 });
 
+app.get('/login', (req, res) => {
+  res.render('login.html');
+});
+
 app.post('/register', (req, res) => {
   console.log('Thông tin đăng ký:', req.body);
   res.redirect('/login');
