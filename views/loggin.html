@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký tài khoản</title>
+  <link rel="stylesheet" href="/css/loggin_style.css">
+  <script src="auth.js" defer></script>
+</head>
+<body>
+<main class="auth-card">
+  <h1>Tạo tài khoản</h1>
+  <p class="description">
+    Đăng ký tài khoản để bắt đầu sử dụng.
+  </p>
+
+  <form id="registerForm">
+    <label for="fullName">Họ và tên</label>
+    <input
+      id="fullName"
+      name="fullName"
+      type="text"
+      maxlength="100"
+      autocomplete="name"
+      required
+    >
+
+    <label for="email">Email</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      maxlength="255"
+      autocomplete="email"
+      required
+    >
+
+    <label for="password">Mật khẩu</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      minlength="8"
+      autocomplete="new-password"
+      required
+    >
+
+    <label for="confirmPassword">Xác nhận mật khẩu</label>
+    <input
+      id="confirmPassword"
+      name="confirmPassword"
+      type="password"
+      minlength="8"
+      autocomplete="new-password"
+      required
+    >
+
+    <button type="submit">Đăng ký</button>
+
+    <p id="message" class="message"
+       role="status" aria-live="polite"></p>
+  </form>
+
+  <p class="footer-link">
+    Đã có tài khoản?
+    <a href="login.html">Đăng nhập</a>
+  </p>
+
+  <p class="footer-link">
+    <a href="forgot-password.html">Quên mật khẩu?</a>
+  </p>
+</main>
+</body>
+</html>
+
