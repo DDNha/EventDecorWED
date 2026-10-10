@@ -1,12 +1,10 @@
 {
-  "name": " ",
-  "version": "0.0.1",
+  "name": "eventdecor_web",
+  "version": "1.0.0",
   "description": "",
   "private": true,
-  "keywords": [
-    ""
-  ],
-  "license": "",
+  "keywords": [],
+  "license": "ISC",
   "author": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -22,18 +20,25 @@
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
-    "express": "^5.2.1",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.7",
+    "express": "^4.22.3",
+    "express-rate-limit": "^8.7.1",
+    "mysql2": "^3.24.5",
+    "nodemailer": "^10.1.0",
     "nunjucks": "^3.2.4"
   },
-    "name": "eventdecor_web",
-    "version": "1.0.0",
-    "main": "app.js",
-    "dependencies": {
-      "express": "^4.19.2",
-      "nunjucks": "^3.2.4"
-    },
-    "overrides": {
-      "braces": "^3.0.3"
-    }
-  }
-
+  "main": "app.js",
+  "overrides": {
+    "braces": "^3.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DDNha/EventDecorWED.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DDNha/EventDecorWED/issues"
+  },
+  "homepage": "https://github.com/DDNha/EventDecorWED#readme"
+}
