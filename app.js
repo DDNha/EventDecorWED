@@ -4,12 +4,20 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const session = require('express-session')
+const bcrypt = require('bcrypt')
 const mysql = require('mysql2/promise');
-require('dotenv').config()
 
 // Middleware đọc dữ liệu từ Form POST
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Cấu hình Express Session
+app.use(session({
+  secret: 'chuoi_bi_mat_rat_an_toan',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 } // Phiên tồn tại trong 1 ngày
+}));
 
 // Phục vụ file tĩnh từ các thư mục css, img, js ở thư mục gốc
 app.use('/css', express.static(path.join(__dirname, 'css')));
@@ -26,13 +34,6 @@ nunjucks.configure('views', {
   noCache: true
 });
 app.set('view engine', 'html');
-//Cấu hình session
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {secure: false}
-}))
 
 //Kết nối SQL
 const pool = mysql.createPool({
@@ -49,16 +50,18 @@ async function testConnection() {
   try {
     const connection = await pool.getConnection();
     console.log('Kết nối MySQL thành công!');
-    connection.release();
   } catch (error) {
-    console.error('Lỗi kết nối MySQL:', error.message);
+    console.error('Lỗi kết nối hoặc truy vấn:', error);
   }
 }
 
-testConnection();
+testConnection().then();
 
 // ---------------- ROUTES ----------------
 app.get('/', (req, res) => {
+  if (!req.session) {
+    return res.redirect('/login');
+  }
   res.render('index.html');
 });
 
@@ -90,6 +93,32 @@ app.post('/register', (req, res) => {
 
 app.get('/login', (req, res) => {
   res.render('login.html');
+});
+
+app.post('/login', async (req, res) => {
+  if (req === undefined) { req = {}; }
+  const { email, password } = req.body;
+
+  try {
+    // Truy vấn kiểm tra user trong database
+    const [rows] = await pool.query(
+      'SELECT * FROM users WHERE email = ? AND password = ?',
+      [email, password]
+    );
+
+    console.log(rows);
+    if (rows.length > 0) {
+      // Đăng nhập thành công, lưu thông tin vào session
+      req.session.user = { id: rows[0].id, username: rows[0].username };
+      return res.redirect('/');
+    } else {
+      // Sai tài khoản hoặc mật khẩu
+      return res.send(`<script>alert('Sai email hoặc mật khẩu.');</script>`);
+    }
+  } catch (error) {
+    console.error('Lỗi đăng nhập:', error);
+    res.status(500).send('Lỗi hệ thống server.');
+  }
 });
 
 app.listen(PORT, () => {
