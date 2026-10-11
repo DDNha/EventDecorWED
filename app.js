@@ -56,6 +56,14 @@ async function testConnection() {
 
 testConnection().then();
 
+// Middleware kiểm tra xem người dùng đã đăng nhập chưa
+function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+    return next();
+  }
+  res.redirect('/');
+}
+
 // ---------------- ROUTES ----------------
 app.get('/', (req, res) => {
   if (!req.session) {
@@ -90,10 +98,16 @@ app.post('/register', (req, res) => {
   res.redirect('/login');
 });
 
+// API lấy thông tin user đang đăng nhập (để hiển thị lên dashboard)
+app.get('/api/current-user', isAuthenticated, (req, res) => {
+  res.json({ username: req.session.user.username });
+});
+
 app.get('/login', (req, res) => {
   res.render('login.html');
 });
 
+//Xử lý đăng nhập (POST)
 app.post('/login', async (req, res) => {
   if (req === undefined) { req = {}; }
   const { email, password } = req.body;
@@ -127,7 +141,7 @@ app.get('/logout', (req, res) => {
     if (err) {
       return console.log('Lỗi khi hủy session:', err);
     }
-    res.redirect('/login.html');
+    res.redirect('/');
   });
 });
 
