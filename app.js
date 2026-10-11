@@ -3,6 +3,10 @@ const nunjucks = require('nunjucks');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const bcrypt = require('bcrypt');
+const session = require('express-session')
+const mysql = require('mysql2')
+require('dotenv').config()
 
 // Middleware đọc dữ liệu từ Form POST
 app.use(express.urlencoded({ extended: true }));
@@ -23,6 +27,21 @@ nunjucks.configure('views', {
   noCache: true
 });
 app.set('view engine', 'html');
+//Cấu hình session
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {secure: false}
+}))
+
+//Kết nối SQL
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
+});
 
 // ---------------- ROUTES ----------------
 app.get('/', (req, res) => {
@@ -50,13 +69,13 @@ app.get('/register', (req, res) => {
   res.render('register.html');
 });
 
-app.get('/login', (req, res) => {
-  res.render('login.html');
-});
-
 app.post('/register', (req, res) => {
   console.log('Thông tin đăng ký:', req.body);
   res.redirect('/login');
+});
+
+app.get('/login', (req, res) => {
+  res.render('login.html');
 });
 
 app.listen(PORT, () => {
