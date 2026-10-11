@@ -3,9 +3,8 @@ const nunjucks = require('nunjucks');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const bcrypt = require('bcrypt');
 const session = require('express-session')
-const mysql = require('mysql2')
+const mysql = require('mysql2/promise');
 require('dotenv').config()
 
 // Middleware đọc dữ liệu từ Form POST
@@ -36,12 +35,27 @@ app.use(session({
 }))
 
 //Kết nối SQL
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+const pool = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: 'hello', // Điền mật khẩu MySQL của bạn
+  database: 'node_auth_demo', // Tên database cần kết nối
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
+
+async function testConnection() {
+  try {
+    const connection = await pool.getConnection();
+    console.log('Kết nối MySQL thành công!');
+    connection.release();
+  } catch (error) {
+    console.error('Lỗi kết nối MySQL:', error.message);
+  }
+}
+
+testConnection();
 
 // ---------------- ROUTES ----------------
 app.get('/', (req, res) => {
