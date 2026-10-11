@@ -21,16 +21,16 @@
           <a class="nav-link text-white" href="/contact">Liên hệ</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-pill text-white btn-register" href="/register">Đăng ký</a>
+          <a id="register" class="btn btn-pill text-white btn-register" href="/register">Đăng ký</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-pill text-white btn-login" href="/login">Đăng nhập</a>
+          <a id="login" class="btn btn-pill text-white btn-login" href="/login">Đăng nhập</a>
         </li>
         <li class="nav-item">
-          <a id="username" class="btn btn-pill text-white"></a>
+          <a id="username" class="btn btn-pill text-white btn-register" hidden="hidden"></a>
         </li>
         <li class="nav-item">
-          <a id="logout" class="btn btn-pill text-white btn-register" href="/logout">Đăng xuất</a>
+          <a id="logout" class="btn btn-pill text-white btn-register" href="/logout" hidden="hidden">Đăng xuất</a>
         </li>
       </ul>
     </div>
@@ -43,6 +43,12 @@
     .then(res => res.json())
     .then(data => {
       document.getElementById('username').innerText = data.username;
+      document.getElementById('register').hidden = true;
+      document.getElementById('login').hidden = true;
+      document.getElementById('username').hidden = false;
+      document.getElementById('logout').hidden = false;
     })
-    .catch(err => console.error('Lỗi lấy thông tin user:', err));
+    .catch(err => {
+      console.error('Lỗi lấy thông tin user:', err);
+    });
 </script>
