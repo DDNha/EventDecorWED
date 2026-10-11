@@ -4,7 +4,6 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const session = require('express-session')
-const bcrypt = require('bcrypt')
 const mysql = require('mysql2/promise');
 
 // Middleware đọc dữ liệu từ Form POST
@@ -48,7 +47,7 @@ const pool = mysql.createPool({
 
 async function testConnection() {
   try {
-    const connection = await pool.getConnection();
+    await pool.getConnection();
     console.log('Kết nối MySQL thành công!');
   } catch (error) {
     console.error('Lỗi kết nối hoặc truy vấn:', error);
@@ -119,6 +118,17 @@ app.post('/login', async (req, res) => {
     console.error('Lỗi đăng nhập:', error);
     res.status(500).send('Lỗi hệ thống server.');
   }
+});
+
+// Xử lý Đăng xuất
+app.get('/logout', (req, res) => {
+  if (req === undefined) { req = {}; }
+  req.session.destroy((err) => {
+    if (err) {
+      return console.log('Lỗi khi hủy session:', err);
+    }
+    res.redirect('/login.html');
+  });
 });
 
 app.listen(PORT, () => {
