@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Đặt hàng{% endblock title %}
+
+{% block header %}
+<div class="container header-page d-flex justify-content-center align-items-center">
+  <h1 class="fw-bold text-white">Đặt hàng</h1>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="container mb-4 mt-4 d-flex flex-column justify-content-center">
+  <div class="row form-contact">
+    <div class="col-lg-5 info-contact text-white d-flex flex-column gap-3 p-4">
+      <h3>Thông tin dịch vụ</h3>
+      {% if service.image %}
+      <img src="{{ service.image }}" alt="{{ service.title }}" class="img-fluid rounded-4">
+      {% endif %}
+      <h4 class="fw-bold">{{ service.title }}</h4>
+      <p class="contact-item d-flex align-items-center gap-3 mb-0">
+        <i class="fa-solid fa-handshake"></i> Đối tác: {{ service.partner }}
+      </p>
+      <p class="contact-item d-flex align-items-center gap-3 mb-0">
+        <i class="fa-solid fa-tag"></i> Đơn giá: {{ servicePrice }}
+      </p>
+      <p class="contact-item d-flex align-items-center gap-3 fs-5 fw-bold">
+        <i class="fa-solid fa-receipt"></i> Tạm tính: <span id="total-price">{{ totalPrice }}</span>
+      </p>
+    </div>
+
+    <div class="col-lg-7 p-3">
+      <div class="contact-form">
+        <h2 class="mb-4">Thông tin đặt hàng</h2>
+
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <form action="/order/{{ service.id }}" method="POST">
+          <h5 class="mb-3">Người đặt</h5>
+          <div class="form-group mb-3">
+            <label for="customerName" class="form-label">Họ tên</label>
+            <input type="text" class="form-control" id="customerName" name="customerName" maxlength="100" value="{{ form.customerName }}" placeholder="Nhập họ tên" required />
+          </div>
+          <div class="row">
+            <div class="form-group mb-3 col-md-6">
+              <label for="customerPhone" class="form-label">Số điện thoại</label>
+              <input type="tel" class="form-control" id="customerPhone" name="customerPhone" value="{{ form.customerPhone }}" placeholder="0901234567" required />
+            </div>
+            <div class="form-group mb-3 col-md-6">
+              <label for="customerEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="customerEmail" name="customerEmail" maxlength="100" value="{{ form.customerEmail }}" placeholder="name@example.com" required />
+            </div>
+          </div>
+
+          <h5 class="mb-3 mt-2">Thông tin tiệc</h5>
+          <div class="row">
+            <div class="form-group mb-3 col-md-6">
+              <label for="eventDate" class="form-label">Ngày tổ chức</label>
+              <input type="date" class="form-control" id="eventDate" name="eventDate" min="{{ minDate }}" value="{{ form.eventDate }}" required />
+              <div id="availability-status" class="small fw-bold mt-1"></div>
+            </div>
+            <div class="form-group mb-3 col-md-6">
+              <label for="quantity" class="form-label">Số lượng</label>
+              <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="100" value="{{ form.quantity }}" required />
+            </div>
+          </div>
+          {% if service.colors.length %}
+          <div class="form-group mb-3">
+            <label for="color" class="form-label">Tông màu chủ đạo</label>
+            <select class="form-select" id="color" name="color" required>
+              {% for color in service.colors %}
+              <option value="{{ color }}" {% if color == form.color %}selected{% endif %}>{{ color }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% endif %}
+          <div class="form-group mb-3">
+            <label for="eventAddress" class="form-label">Địa chỉ tổ chức tiệc</label>
+            <input type="text" class="form-control" id="eventAddress" name="eventAddress" maxlength="255" value="{{ form.eventAddress }}" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành" required />
+          </div>
+          <div class="form-group mb-3">
+            <label for="note" class="form-label">Ghi chú / yêu cầu thêm</label>
+            <textarea class="form-control" id="note" name="note" rows="3" maxlength="1000" placeholder="Ví dụ: giờ bắt đầu, chủ đề tiệc...">{{ form.note }}</textarea>
+          </div>
+
+          <h5 class="mb-3 mt-2">Tài khoản ngân hàng (dùng để hoàn tiền khi cần)</h5>
+          <div class="form-group mb-3">
+            <label for="bankName" class="form-label">Ngân hàng</label>
+            <input type="text" class="form-control" id="bankName" name="bankName" maxlength="100" value="{{ form.bankName }}" placeholder="Ví dụ: Vietcombank" required />
+          </div>
+          <div class="row">
+            <div class="form-group mb-4 col-md-6">
+              <label for="bankAccount" class="form-label">Số tài khoản</label>
+              <input type="text" class="form-control" id="bankAccount" name="bankAccount" inputmode="numeric" value="{{ form.bankAccount }}" placeholder="Nhập số tài khoản" required />
+            </div>
+            <div class="form-group mb-4 col-md-6">
+              <label for="bankHolder" class="form-label">Chủ tài khoản</label>
+              <input type="text" class="form-control" id="bankHolder" name="bankHolder" maxlength="100" value="{{ form.bankHolder }}" placeholder="NGUYEN VAN A" required />
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end m-2">
+            <button type="submit" id="btn-order" class="btn btn-danger btn-submit">Xác nhận đặt hàng</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var bookedDates = {{ bookedDates | dump | safe }};
+  var unitPrice = {{ service.price }};
+  var dateInput = document.getElementById('eventDate');
+  var quantityInput = document.getElementById('quantity');
+  var orderButton = document.getElementById('btn-order');
+
+  // Kiểm tra ngày đã chọn còn lịch hay không
+  function checkAvailability() {
+    var status = document.getElementById('availability-status');
+    if (!dateInput.value) {
+      status.innerHTML = '';
+      orderButton.disabled = false;
+      return;
+    }
+    if (bookedDates.includes(dateInput.value)) {
+      status.className = 'small fw-bold mt-1 text-danger';
+      status.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Ngày này đã kín lịch, vui lòng chọn ngày khác.';
+      orderButton.disabled = true;
+    } else {
+      status.className = 'small fw-bold mt-1 text-success';
+      status.innerHTML = '<i class="fa-solid fa-circle-check"></i> Ngày bạn chọn còn lịch.';
+      orderButton.disabled = false;
+    }
+  }
+
+  // Cập nhật tạm tính khi đổi số lượng
+  function updateTotal() {
+    var quantity = parseInt(quantityInput.value, 10) || 1;
+    document.getElementById('total-price').innerText = (unitPrice * quantity).toLocaleString('vi-VN') + ' VNĐ';
+  }
+
+  dateInput.addEventListener('change', checkAvailability);
+  quantityInput.addEventListener('input', updateTotal);
+  checkAvailability();
+</script>
+{% endblock content %}

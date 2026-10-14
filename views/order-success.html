@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Đặt hàng thành công{% endblock title %}
+
+{% block header %}
+<div class="container header-page d-flex justify-content-center align-items-center">
+  <h1 class="fw-bold text-white">Đặt hàng thành công</h1>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="container mb-4 mt-4 d-flex flex-column justify-content-center">
+  <div class="row form-contact">
+    <div class="col-lg-5 info-contact text-white d-flex flex-column justify-content-center gap-4 p-4">
+      <h3><i class="fa-solid fa-circle-check"></i> Cảm ơn bạn đã đặt hàng!</h3>
+      <p class="mb-0">Mã đơn hàng của bạn: <strong class="fs-5">{{ orderCode }}</strong></p>
+      <p class="mb-0">Đối tác <strong>{{ order.partner_name }}</strong> sẽ liên hệ với bạn qua số điện thoại hoặc email để xác nhận đơn.</p>
+      <a href="/services" class="btn btn-light rounded-pill align-self-start">Tiếp tục xem dịch vụ</a>
+    </div>
+
+    <div class="col-lg-7 p-3">
+      <div class="contact-form">
+        <h2 class="mb-4">Chi tiết đơn hàng</h2>
+        <table class="table">
+          <tbody>
+            <tr><th>Gói dịch vụ</th><td>{{ order.service_name }}</td></tr>
+            <tr><th>Đối tác</th><td>{{ order.partner_name }}</td></tr>
+            <tr><th>Đơn giá</th><td>{{ unitPrice }}</td></tr>
+            <tr><th>Số lượng</th><td>{{ order.quantity }}</td></tr>
+            {% if order.color %}
+            <tr><th>Tông màu</th><td>{{ order.color }}</td></tr>
+            {% endif %}
+            <tr><th>Thành tiền</th><td class="fw-bold text-danger">{{ totalPrice }}</td></tr>
+            <tr><th>Ngày tổ chức</th><td>{{ order.event_date_text }}</td></tr>
+            <tr><th>Địa chỉ</th><td>{{ order.event_address }}</td></tr>
+            <tr><th>Người đặt</th><td>{{ order.customer_name }} - {{ order.customer_phone }} - {{ order.customer_email }}</td></tr>
+            <tr><th>Tài khoản hoàn tiền</th><td>{{ order.bank_name }} - {{ order.bank_account }} - {{ order.bank_holder }}</td></tr>
+            {% if order.note %}
+            <tr><th>Ghi chú</th><td>{{ order.note }}</td></tr>
+            {% endif %}
+            <tr><th>Trạng thái</th><td><span class="badge bg-primary">Khách vừa xác nhận</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
