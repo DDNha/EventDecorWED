@@ -1,8 +1,7 @@
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang web</title>
-</head>
+{% extends "base.html" %}
+{% block title %}Trang chủ{% endblock title %}
+
+{% block header %}
 <div class="container my-4">
   <div class="header-page rounded-4 d-flex flex-column justify-content-center align-items-center text-center py-5 px-3"
        style="min-height: 460px;
@@ -23,16 +22,13 @@
     </a>
   </div>
 </div>
-<link rel="stylesheet" href="/css/home.css">
-
+{% endblock header %}
+{% block content %}
 <section class="featured-section">
   <div class="featured-band"></div>
-
   <div class="container">
     <h2 class="featured-tab">Dịch vụ nổi bật</h2>
-
     <div class="row g-4">
-
       <!-- Card 1 -->
       <div class="col-12 col-sm-6 col-lg-4">
         <article class="service-card">

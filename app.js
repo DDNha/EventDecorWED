@@ -79,7 +79,9 @@ app.get('/about', (req, res) => {
 app.get('/services', (req, res) => {
   res.render('eventservices.html');
 });
-
+app.get('/partner', (req, res) => {
+  res.render('partner.html');
+});
 app.get('/contact', (req, res) => {
   res.render('contact.html');
 });
