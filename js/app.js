@@ -54,7 +54,7 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login.html'); // Tạo thêm login.html nếu cần
+  res.render('loggin.html'); // Tạo thêm loggin.html nếu cần
 });
 
 app.listen(PORT, () => {
