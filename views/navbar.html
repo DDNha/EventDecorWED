@@ -1,11 +1,6 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container">
-    <button
-      class="navbar-toggler text-white"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#menu"
-    >
+    <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-center" id="menu">
@@ -17,7 +12,7 @@
           <a class="nav-link text-white" href="/services">Dịch vụ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="/partner">Đối tác</a>
+          <a class="nav-link text-white" href="#">Đối tác</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="/about">Về chúng tôi</a>
@@ -26,16 +21,34 @@
           <a class="nav-link text-white" href="/contact">Liên hệ</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-pill text-white btn-register" href="/register"
-            >Đăng ký</a
-          >
+          <a id="register" class="btn btn-pill text-white btn-register" href="/register">Đăng ký</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-pill text-white btn-login" href="/login"
-            >Đăng nhập</a
-          >
+          <a id="login" class="btn btn-pill text-white btn-login" href="/login">Đăng nhập</a>
+        </li>
+        <li class="nav-item">
+          <a id="username" class="btn btn-pill text-white btn-register" hidden="hidden"></a>
+        </li>
+        <li class="nav-item">
+          <a id="logout" class="btn btn-pill text-white btn-register" href="/logout" hidden="hidden">Đăng xuất</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+<script>
+  // Lấy thông tin user hiện tại từ server để hiển thị
+  fetch('/api/current-user')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('username').innerText = data.username;
+      document.getElementById('register').hidden = true;
+      document.getElementById('login').hidden = true;
+      document.getElementById('username').hidden = false;
+      document.getElementById('logout').hidden = false;
+    })
+    .catch(err => {
+      console.error('Lỗi lấy thông tin user:', err);
+    });
+</script>

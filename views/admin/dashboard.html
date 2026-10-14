@@ -1,0 +1,37 @@
+{% extends "admin/layout-admin.html" %}
+
+{% block title %}EventDecor - Tổng quan Dashboard{% endblock %}
+
+{% block content %}
+<!-- BREADCRUMB -->
+<nav class="flex items-center text-xs font-medium text-slate-400 mb-5 select-none" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center space-x-1.5 md:space-x-2">
+    <li class="inline-flex items-center">
+      <a href="/admin/dashboard" class="hover:text-blue-600 transition-colors">Trang chủ</a>
+    </li>
+    <li>
+      <span class="text-slate-300 mx-1">&rsaquo;</span>
+    </li>
+    <li aria-current="page">
+      <span class="text-slate-600 font-semibold">Dashboard</span>
+    </li>
+  </ol>
+</nav>
+
+<!-- TIÊU ĐỀ TRANG -->
+<div class="mb-6">
+  <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Tổng quan Dashboard</h1>
+  <p class="text-[13px] text-slate-400 font-normal mt-1">
+    Theo dõi các chỉ số hoạt động, doanh thu và đơn hàng toàn hệ thống
+  </p>
+</div>
+
+<!-- KHU VỰC THỐNG KÊ & BIỂU ĐỒ (Sẽ bổ sung các widget nội dung tại đây) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+  <!-- Widget thống kê mẫu hoặc nội dung dashboard -->
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Chèn script biểu đồ (Chart.js nếu có) hoặc logic riêng cho trang Dashboard -->
+{% endblock %}
