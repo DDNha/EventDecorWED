@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+{% block title %}Giỏ hàng của bạn{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+  <!-- Tiêu đề trang -->
+  <div class="d-flex align-items-center mb-4 gap-3">
+    <h2 class="fw-bold mb-0">
+      <i class="fa-solid fa-cart-shopping me-2" style="color:#ed4690"></i>Giỏ hàng của bạn
+    </h2>
+    {% if cart and cart | length > 0 %}
+      <span class="badge rounded-pill" style="background: linear-gradient(to right,#ed4690,#5522cc); font-size:1rem;">
+        {{ cart | length }} dịch vụ
+      </span>
+    {% endif %}
+  </div>
+
+  {% if cart and cart | length > 0 %}
+  <div class="row g-4">
+
+    <!-- Danh sách sản phẩm trong giỏ -->
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-0">
+          <table class="table align-middle mb-0">
+            <thead style="background: linear-gradient(to right,#ed4690,#5522cc);">
+              <tr class="text-white">
+                <th class="ps-4 py-3 rounded-top-4">Dịch vụ</th>
+                <th class="text-center py-3">Đơn giá</th>
+                <th class="text-center py-3">Số lượng</th>
+                <th class="text-center py-3">Thành tiền</th>
+                <th class="text-center py-3">Xóa</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in cart %}
+              <tr class="border-bottom">
+                <!-- Ảnh + Tên -->
+                <td class="ps-4 py-3">
+                  <div class="d-flex align-items-center gap-3">
+                    <img src="{{ item.img }}" alt="{{ item.name }}"
+                         class="rounded-3 object-fit-cover"
+                         style="width:80px; height:80px;">
+                    <div>
+                      <p class="fw-semibold mb-1">{{ item.name }}</p>
+                      <small class="text-muted">Mã: #{{ item.product_id }}</small>
+                    </div>
+                  </div>
+                </td>
+
+                <!-- Đơn giá -->
+                <td class="text-center">
+                  <span class="fw-semibold" style="color:#5522cc;">
+                    {{ item.price | int | string | replace(",", ".") }}
+                    <!-- Hiển thị đúng định dạng bằng JS bên dưới -->
+                  </span>
+                </td>
+
+                <!-- Cập nhật số lượng -->
+                <td class="text-center">
+                  <form action="/cart/update" method="POST" class="d-flex align-items-center justify-content-center gap-1">
+                    <input type="hidden" name="product_id" value="{{ item.product_id }}">
+                    <button type="submit" name="action" value="minus"
+                            class="btn btn-sm btn-outline-secondary rounded-circle"
+                            style="width:30px;height:30px;padding:0;"
+                            {% if item.qty <= 1 %}disabled{% endif %}>
+                      <i class="fa-solid fa-minus" style="font-size:10px;"></i>
+                    </button>
+                    <span class="fw-bold mx-2" style="min-width:24px;">{{ item.qty }}</span>
+                    <button type="submit" name="action" value="plus"
+                            class="btn btn-sm btn-outline-secondary rounded-circle"
+                            style="width:30px;height:30px;padding:0;">
+                      <i class="fa-solid fa-plus" style="font-size:10px;"></i>
+                    </button>
+                  </form>
+                </td>
+
+                <!-- Thành tiền -->
+                <td class="text-center fw-bold" style="color:#ed4690;">
+                  <span class="item-total" data-price="{{ item.price }}" data-qty="{{ item.qty }}">
+                    <!-- Hiển thị bằng JS -->
+                  </span>
+                </td>
+
+                <!-- Xóa -->
+                <td class="text-center">
+                  <form action="/cart/remove" method="POST">
+                    <input type="hidden" name="product_id" value="{{ item.product_id }}">
+                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle"
+                            style="width:34px;height:34px;padding:0;"
+                            title="Xóa khỏi giỏ">
+                      <i class="fa-solid fa-trash-can" style="font-size:12px;"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Nút điều hướng dưới bảng -->
+      <div class="d-flex justify-content-between mt-3">
+        <a href="/services" class="btn btn-outline-secondary rounded-pill px-4">
+          <i class="fa-solid fa-arrow-left me-2"></i>Tiếp tục xem dịch vụ
+        </a>
+        <form action="/cart/clear" method="POST">
+          <button type="submit" class="btn btn-outline-danger rounded-pill px-4"
+                  onclick="return confirm('Xóa toàn bộ giỏ hàng?')">
+            <i class="fa-solid fa-trash me-2"></i>Xóa tất cả
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tóm tắt đơn hàng -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top:20px;">
+        <div class="card-header border-0 rounded-top-4 text-white fw-bold fs-5 py-3"
+             style="background: linear-gradient(to right,#ed4690,#5522cc);">
+          <i class="fa-solid fa-receipt me-2"></i>Tóm tắt đơn hàng
+        </div>
+        <div class="card-body p-4">
+
+          {% for item in cart %}
+          <div class="d-flex justify-content-between mb-2 small">
+            <span class="text-muted">{{ item.name }} x{{ item.qty }}</span>
+            <span class="summary-line" data-price="{{ item.price }}" data-qty="{{ item.qty }}"></span>
+          </div>
+          {% endfor %}
+
+          <hr>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Tạm tính</span>
+            <span id="subtotal" class="fw-semibold"></span>
+          </div>
+          <div class="d-flex justify-content-between mb-3">
+            <span class="text-muted">Phí dịch vụ (5%)</span>
+            <span id="fee" class="fw-semibold"></span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between mb-4">
+            <span class="fw-bold fs-5">Tổng cộng</span>
+            <span id="total" class="fw-bold fs-5" style="color:#ed4690;"></span>
+          </div>
+
+          <!-- Nút đặt hàng → sẽ kết nối với Phát sau -->
+          <a href="/order" class="btn w-100 text-white fw-bold rounded-pill py-2"
+             style="background: linear-gradient(to right,#ed4690,#5522cc);">
+            <i class="fa-solid fa-bag-shopping me-2"></i>Tiến hành đặt hàng
+          </a>
+          <p class="text-center text-muted small mt-3 mb-0">
+            <i class="fa-solid fa-shield-halved me-1"></i>Thanh toán an toàn & bảo mật
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  {% else %}
+  <!-- Giỏ hàng trống -->
+  <div class="text-center py-5 my-5">
+    <i class="fa-solid fa-cart-shopping fa-5x mb-4" style="color:#ddd;"></i>
+    <h4 class="text-muted mb-3">Giỏ hàng của bạn đang trống</h4>
+    <p class="text-muted mb-4">Hãy khám phá các dịch vụ trang trí sự kiện của chúng tôi!</p>
+    <a href="/services" class="btn text-white rounded-pill px-5 py-2 fw-bold"
+       style="background: linear-gradient(to right,#ed4690,#5522cc);">
+      <i class="fa-solid fa-sparkles me-2"></i>Xem dịch vụ ngay
+    </a>
+  </div>
+  {% endif %}
+
+</div>
+
+<!-- Script tính tiền định dạng VND -->
+<script>
+  function formatVND(amount) {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency', currency: 'VND'
+    }).format(amount);
+  }
+
+  // Hiển thị thành tiền từng dòng
+  document.querySelectorAll('.item-total').forEach(el => {
+    const price = parseInt(el.dataset.price);
+    const qty   = parseInt(el.dataset.qty);
+    el.textContent = formatVND(price * qty);
+  });
+
+  // Hiển thị từng dòng trong tóm tắt
+  document.querySelectorAll('.summary-line').forEach(el => {
+    const price = parseInt(el.dataset.price);
+    const qty   = parseInt(el.dataset.qty);
+    el.textContent = formatVND(price * qty);
+  });
+
+  // Tính tổng
+  let subtotal = 0;
+  document.querySelectorAll('.item-total').forEach(el => {
+    const price = parseInt(el.closest('tr').querySelector('[data-price]').dataset.price);
+    const qty   = parseInt(el.closest('tr').querySelector('[data-qty]').dataset.qty);
+    subtotal += price * qty;
+  });
+
+  const fee   = Math.round(subtotal * 0.05);
+  const total = subtotal + fee;
+
+  const subtotalEl = document.getElementById('subtotal');
+  const feeEl      = document.getElementById('fee');
+  const totalEl    = document.getElementById('total');
+  if (subtotalEl) subtotalEl.textContent = formatVND(subtotal);
+  if (feeEl)      feeEl.textContent      = formatVND(fee);
+  if (totalEl)    totalEl.textContent    = formatVND(total);
+</script>
+{% endblock %}

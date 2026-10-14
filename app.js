@@ -147,6 +147,109 @@ app.get('/logout', (req, res) => {
   });
 });
 
+// ======================================================
+// ===      QUẢN LÝ GIỎ HÀNG - Thiện làm             ===
+// ======================================================
+
+// Dữ liệu sản phẩm mẫu để test (sau này thay bằng query DB từ Hi Hi)
+const mockProducts = [
+  { id: 1, name: 'Gói trang trí tiệc cưới',       price: 5000000, img: '/img/wedding.png'   },
+  { id: 2, name: 'Gói sinh nhật',                  price: 2000000, img: '/img/birthday.png'  },
+  { id: 3, name: 'Gói tiệc cuối năm',              price: 3500000, img: '/img/endYear.png'   },
+  { id: 4, name: 'Gói sự kiện khai trương',        price: 4000000, img: '/img/HBGevent.png'  },
+  { id: 5, name: 'Gói chụp ảnh & quay phim',      price: 2500000, img: '/img/quayPhim.png'  },
+];
+
+// Hàm tìm sản phẩm theo id (sẽ thay bằng DB khi Hi Hi xong)
+function findProduct(productId) {
+  return mockProducts.find(p => p.id === parseInt(productId));
+}
+
+// GET /cart - Hiển thị trang giỏ hàng
+app.get('/cart', isAuthenticated, (req, res) => {
+  const cart = req.session.cart || [];
+  res.render('cart.html', { cart });
+});
+
+// POST /cart/add - Thêm sản phẩm vào giỏ
+app.post('/cart/add', isAuthenticated, (req, res) => {
+  const { product_id } = req.body;
+  const product = findProduct(product_id);
+
+  if (!product) {
+    return res.status(404).send('Không tìm thấy sản phẩm.');
+  }
+
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+
+  // Nếu đã có trong giỏ → tăng số lượng
+  const existing = req.session.cart.find(item => item.product_id === product.id);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    req.session.cart.push({
+      product_id: product.id,
+      name:       product.name,
+      price:      product.price,
+      img:        product.img,
+      qty:        1
+    });
+  }
+
+  console.log(`[GIỎ HÀNG] Thêm: ${product.name} | User: ${req.session.user.username}`);
+  res.redirect('/cart');
+});
+
+// POST /cart/update - Tăng/giảm số lượng
+app.post('/cart/update', isAuthenticated, (req, res) => {
+  const { product_id, action } = req.body;
+
+  if (!req.session.cart) {
+    return res.redirect('/cart');
+  }
+
+  const item = req.session.cart.find(i => i.product_id === parseInt(product_id));
+  if (item) {
+    if (action === 'plus') {
+      item.qty += 1;
+    } else if (action === 'minus' && item.qty > 1) {
+      item.qty -= 1;
+    }
+  }
+
+  res.redirect('/cart');
+});
+
+// POST /cart/remove - Xóa 1 sản phẩm khỏi giỏ
+app.post('/cart/remove', isAuthenticated, (req, res) => {
+  const { product_id } = req.body;
+
+  if (req.session.cart) {
+    req.session.cart = req.session.cart.filter(
+      item => item.product_id !== parseInt(product_id)
+    );
+  }
+
+  res.redirect('/cart');
+});
+
+// POST /cart/clear - Xóa toàn bộ giỏ hàng
+app.post('/cart/clear', isAuthenticated, (req, res) => {
+  req.session.cart = [];
+  res.redirect('/cart');
+});
+
+// GET /api/cart-count - Trả số lượng item trong giỏ (dùng cho badge navbar)
+app.get('/api/cart-count', isAuthenticated, (req, res) => {
+  const cart = req.session.cart || [];
+  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  res.json({ count });
+});
+
+// ======================================================
+
 app.listen(PORT, () => {
   console.log(`Server đang chạy thành công tại: http://localhost:${PORT}`);
 });
