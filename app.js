@@ -34,41 +34,40 @@ nunjucks.configure('views', {
 });
 app.set('view engine', 'html');
 
-//Kết nối SQL
-const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'hello', // Điền mật khẩu MySQL của bạn
-  database: 'node_auth_demo', // Tên database cần kết nối
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
+// //Kết nối SQL
+// const pool = mysql.createPool({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'hello', // Điền mật khẩu MySQL của bạn
+//   database: 'node_auth_demo', // Tên database cần kết nối
+//   waitForConnections: true,
+//   connectionLimit: 10,
+//   queueLimit: 0
+// });
 
-async function testConnection() {
-  try {
-    await pool.getConnection();
-    console.log('Kết nối MySQL thành công!');
-  } catch (error) {
-    console.error('Lỗi kết nối hoặc truy vấn:', error);
-  }
-}
+// async function testConnection() {
+//   try {
+//     await pool.getConnection();
+//     console.log('Kết nối MySQL thành công!');
+//   } catch (error) {
+//     console.error('Lỗi kết nối hoặc truy vấn:', error);
+//   }
+// }
 
-testConnection().then();
+// // testConnection().then(); // Tạm tắt nếu máy chưa có MySQL
 
 // Middleware kiểm tra xem người dùng đã đăng nhập chưa
 function isAuthenticated(req, res, next) {
-  if (req.session.user) {
+  if (req.session && req.session.user) {
     return next();
   }
-  res.redirect('/');
+  // Giả lập session user nếu chưa có CSDL để test giỏ hàng
+  req.session.user = { id: 1, username: 'KhachHangDemo' };
+  return next();
 }
 
 // ---------------- ROUTES ----------------
 app.get('/', (req, res) => {
-  if (!req.session) {
-    return res.redirect('/login');
-  }
   res.render('index.html');
 });
 
@@ -148,22 +147,154 @@ app.get('/logout', (req, res) => {
 });
 
 // ======================================================
-// ===      QUẢN LÝ GIỎ HÀNG - Thiện làm             ===
+// ===        QUẢN LÝ GIỎ HÀNG - Thiện làm             ===
 // ======================================================
 
-// Dữ liệu sản phẩm mẫu để test (sau này thay bằng query DB từ Hi Hi)
+// Dữ liệu sản phẩm mẫu đầy đủ để test (Khớp 100% các thẻ trên trang chủ)
 const mockProducts = [
-  { id: 1, name: 'Gói trang trí tiệc cưới',       price: 5000000, img: '/img/wedding.png'   },
-  { id: 2, name: 'Gói sinh nhật',                  price: 2000000, img: '/img/birthday.png'  },
-  { id: 3, name: 'Gói tiệc cuối năm',              price: 3500000, img: '/img/endYear.png'   },
-  { id: 4, name: 'Gói sự kiện khai trương',        price: 4000000, img: '/img/HBGevent.png'  },
-  { id: 5, name: 'Gói chụp ảnh & quay phim',      price: 2500000, img: '/img/quayPhim.png'  },
+  { 
+    id: 1, 
+    name: 'Gói trang trí sinh nhật cao cấp', 
+    price: 1500000, 
+    img: '/img/birthday.png',
+    rating: 4.6,
+    reviewsCount: 125,
+    vendorName: 'PartyDesign VN',
+    vendorAvatar: '/img/PDesigh.png',
+    description: 'Gói trang trí sinh nhật cao cấp bao gồm cổng bóng nghệ thuật, bàn Gallery theo chủ đề, hệ thống đèn LED và phông nền thiết kế riêng.',
+    inclusions: [
+      'Phông nền (Backdrop) thiết kế theo yêu cầu',
+      'Cổng bóng nghệ thuật phối màu cao cấp',
+      'Bàn Gallery trang trí đầy đủ phụ kiện & khay bánh',
+      'Hệ thống đèn pha chiếu sáng khu vực check-in',
+      'Nhân sự vận chuyển, lắp đặt và dọn dẹp trọn gói'
+    ]
+  },
+
+  { 
+    id: 2, 
+    name: 'Gói làm bánh & tiệc cho sự kiện', 
+    price: 800000, 
+    img: '/img/BanhvaSuKien.png',
+    rating: 4.9,
+    reviewsCount: 14,
+    vendorName: 'King Event Media',
+    vendorAvatar: '/img/kingMedia.png',
+    description: 'Cung cấp mâm tiệc Teabreak, bánh kem nghệ thuật và các loại bánh ngọt cao cấp phục vụ cho tiệc sinh nhật, hội thảo, khai trương.',
+    inclusions: [
+      'Bánh kem sinh nhật / sự kiện thiết kế theo concept',
+      'Set bánh ngọt Teabreak 5 - 7 loại phong phú',
+      'Trái cây tươi cắt sẵn theo mùa',
+      'Dụng cụ ăn uống tự hủy thân thiện môi trường'
+    ]
+  },
+  { 
+    id: 3, 
+    name: 'Gói MC chuyên nghiệp', 
+    price: 3000000, 
+    img: '/img/anhMC.png',
+    rating: 4.6,
+    reviewsCount: 125,
+    vendorName: 'HoaBinh Events',
+    vendorAvatar: '/img/HBGevent.png',
+    description: 'Cung cấp MC nam/nữ chuyên nghiệp, ngoại hình đẹp, chất giọng truyền cảm, xử lý tình huống linh hoạt cho đám cưới, Year End Party, khai trương.',
+    inclusions: [
+      'MC dẫn chương trình chuyên nghiệp (tối đa 4 tiếng)',
+      'Soạn thảo và chốt kịch bản chi tiết cùng BTC',
+      'Hỗ trợ tổng duyệt trước giờ G',
+      'Tương tác và tổ chức Minigame khuấy động không khí'
+    ]
+  },
+  { 
+    id: 4, 
+    name: 'Gói trang trí tiệc cuối năm', 
+    price: 4000000, 
+    img: '/img/endYear.png',
+    rating: 4.6,
+    reviewsCount: 125,
+    vendorName: 'HoaBinh Events',
+    vendorAvatar: '/img/HBGevent.png',
+    description: 'Trang trí trọn gói Year End Party hoành tráng cho doanh nghiệp với Backdrop chụp ảnh lớn, thảm đỏ, hiệu ứng ánh sáng sân khấu.',
+    inclusions: [
+      'Backdrop chụp ảnh check-in khổ lớn (3m x 5m)',
+      'Thảm đỏ lối đi và khu vực check-in',
+      'Hệ thống đèn LED chiếu sáng sân khấu',
+      'Trang trí bàn tiệc VIP theo tone màu chủ đạo của công ty'
+    ]
+  },
+  { 
+    id: 5, 
+    name: 'Gói chụp ảnh & quay phim sự kiện', 
+    price: 2000000, 
+    img: '/img/quayPhim.png',
+    rating: 4.6,
+    reviewsCount: 125,
+    vendorName: 'King Event Media',
+    vendorAvatar: '/img/kingMedia.png',
+    description: 'Đội ngũ thợ chụp ảnh và quay phim chuyên nghiệp ghi lại những khoảnh khắc đáng nhớ trong sự kiện với thiết bị máy quay 4K hiện đại.',
+    inclusions: [
+      '1 Cameraman / Photographer chuyên nghiệp (4 tiếng)',
+      'Giao toàn bộ file ảnh gốc ngay sau sự kiện',
+      'Chỉnh sửa (edit) 50-100 ảnh đẹp nhất',
+      'Dựng 1 video Highlight sự kiện dài 2 - 3 phút'
+    ]
+  },
+  { 
+    id: 6, 
+    name: 'Gói & phụ kiện hoa cho sự kiện', 
+    price: 300000, 
+    img: '/img/hoaCuoi.png',
+    rating: 4.6,
+    reviewsCount: 125,
+    vendorName: 'PartyDesign VN',
+    vendorAvatar: '/img/PDesigh.png',
+    description: 'Cung cấp hoa tươi/hoa lụa nghệ thuật làm hoa cài áo, hoa cầm tay cô dâu, hoa để bàn tiệc cho các sự kiện cưới hỏi, hội nghị.',
+    inclusions: [
+      'Hoa cầm tay cô dâu / hoa đại biểu cao cấp',
+      'Hoa cài áo chú rể / khách mời VIP',
+      'Lọ hoa tươi để bàn đại biểu / bàn tiệc',
+      'Giao hàng tận nơi trước thời gian diễn ra sự kiện'
+    ]
+  }
 ];
 
 // Hàm tìm sản phẩm theo id (sẽ thay bằng DB khi Hi Hi xong)
 function findProduct(productId) {
   return mockProducts.find(p => p.id === parseInt(productId));
 }
+
+// Route xử lý xem chi tiết dịch vụ theo ID
+app.get('/services/:id', (req, res) => {
+  const serviceId = parseInt(req.params.id);
+  const service = findProduct(serviceId);
+
+  if (!service) {
+    return res.status(404).send('Không tìm thấy gói dịch vụ này.');
+  }
+
+  // Lấy 3 sản phẩm gợi ý khác
+  const relatedProducts = mockProducts.filter(p => p.id !== service.id).slice(0, 6);
+
+  res.render('service-detail.html', { service, relatedProducts });
+});
+
+
+// ======================================================
+// ===        XEM CHI TIẾT SẢN PHẨM / DỊCH VỤ           ===
+// ======================================================
+app.get('/services/:id', (req, res) => {
+    const serviceId = parseInt(req.params.id);
+    const service = findProduct(serviceId);
+
+    if (!service) {
+        return res.status(404).send('Không tìm thấy gói dịch vụ này.');
+    }
+
+    // Lấy 6 sản phẩm gợi ý khác
+    const relatedProducts = mockProducts.filter(p => p.id !== service.id).slice(0, 6);
+
+    res.render('service-detail.html', { service, relatedProducts });
+});
 
 // GET /cart - Hiển thị trang giỏ hàng
 app.get('/cart', isAuthenticated, (req, res) => {
