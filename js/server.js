@@ -16,8 +16,26 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'saler.html'));
+});
+app.get('/services', (req, res) => {
+  res.sendFile(path.join(__dirname, 'services.html')); // Đảm bảo bạn có file này hoặc đổi tên tương ứng
+});
+// Trang quản lý đơn đặt dịch vụ
+app.get('/orders', (req, res) => {
+  res.sendFile(path.join(__dirname, 'orders.html'));
+});
 
+// Trang thống kê doanh thu
+app.get('/revenue', (req, res) => {
+  res.sendFile(path.join(__dirname, 'revenue.html'));
+});
 
+// 3. Khởi động server
+app.listen(PORT, () => {
+  console.log(`Server đang chạy tại: http://localhost:${PORT}`);
+});
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 10,

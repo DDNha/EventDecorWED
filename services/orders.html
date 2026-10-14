@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WedPro - Quản lý đơn hàng</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS tùy chỉnh trực tiếp -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .table th {
+            font-weight: 600;
+            color: #495057;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table td {
+            vertical-align: middle;
+            color: #212529;
+        }
+
+        /* Hiệu ứng chuyển động nhẹ cho nút lọc trạng thái */
+        .filter-btn {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <div class="container-fluid py-4">
+        <!-- Tiêu đề trang -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold mb-0">Quản lý đơn hàng</h3>
+                <p class="text-muted small mb-0">Theo dõi, xác nhận và xử lý các đơn hàng từ khách hàng</p>
+            </div>
+            <div class="d-flex gap-2">
+                <div class="input-group input-group-sm bg-white rounded-pill border px-3 py-1" style="width: 250px;">
+                    <span class="input-group-text bg-transparent border-0 text-muted ps-0"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" class="form-control border-0 shadow-none ps-2" placeholder="Tìm mã đơn, tên KH...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Bộ lọc nhanh trạng thái đơn hàng -->
+        <div class="d-flex gap-2 mb-4 overflow-auto pb-2">
+            <button class="filter-btn btn btn-danger btn-sm rounded-pill px-4 fw-bold">Tất cả (18)</button>
+            <button class="filter-btn btn btn-outline-secondary btn-sm rounded-pill px-4">Chờ xác nhận <span class="badge bg-danger ms-1">5</span></button>
+            <button class="filter-btn btn btn-outline-secondary btn-sm rounded-pill px-4">Đã xác nhận</button>
+            <button class="filter-btn btn btn-outline-secondary btn-sm rounded-pill px-4">Đang thực hiện</button>
+            <button class="filter-btn btn btn-outline-secondary btn-sm rounded-pill px-4">Hoàn thành</button>
+            <button class="filter-btn btn btn-outline-secondary btn-sm rounded-pill px-4">Đã hủy</button>
+        </div>
+
+        <!-- Khung chứa bảng danh sách đơn hàng -->
+        <div class="bg-white p-4 rounded-4 shadow-sm">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead class="table-light" style="font-size: 13px;">
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Khách hàng</th>
+                            <th>Dịch vụ đặt</th>
+                            <th>Ngày tổ chức</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th class="text-end">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 14px;">
+                        <!-- Đơn hàng 1: Chờ xác nhận -->
+                        <tr>
+                            <td class="fw-bold text-danger">#DV00125</td>
+                            <td>
+                                <div class="fw-bold">Nguyễn Thị Mai</div>
+                                <small class="text-muted" style="font-size: 11px;">SĐT: 0905 123 456</small>
+                            </td>
+                            <td>Trang trí tiệc cưới cao cấp</td>
+                            <td>20/12/2026</td>
+                            <td class="fw-bold text-danger">15.000.000đ</td>
+                            <td>
+                                <span class="badge bg-warning-subtle text-warning border border-warning px-3 py-1 rounded-pill" style="font-size: 12px;">Chờ xác nhận</span>
+                            </td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-success rounded-pill px-3 me-1 fw-bold" style="font-size: 12px;">Xác nhận</button>
+                                <button class="btn btn-sm btn-outline-danger rounded-pill px-3" style="font-size: 12px;">Từ chối</button>
+                            </td>
+                        </tr>
+
+                        <!-- Đơn hàng 2: Đã xác nhận -->
+                        <tr>
+                            <td class="fw-bold text-danger">#DV00124</td>
+                            <td>
+                                <div class="fw-bold">Trần Văn Hùng</div>
+                                <small class="text-muted" style="font-size: 11px;">SĐT: 0988 765 432</small>
+                            </td>
+                            <td>Chụp ảnh & Quay phim cưới</td>
+                            <td>15/12/2026</td>
+                            <td class="fw-bold text-danger">8.500.000đ</td>
+                            <td>
+                                <span class="badge bg-success-subtle text-success border border-success px-3 py-1 rounded-pill" style="font-size: 12px;">Đã xác nhận</span>
+                            </td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-primary rounded-pill px-3" style="font-size: 12px;"><i class="fa-solid fa-eye me-1"></i> Chi tiết</button>
+                            </td>
+                        </tr>
+
+                        <!-- Đơn hàng 3: Hoàn thành -->
+                        <tr>
+                            <td class="fw-bold text-danger">#DV00120</td>
+                            <td>
+                                <div class="fw-bold">Lê Hoàng Nam</div>
+                                <small class="text-muted" style="font-size: 11px;">SĐT: 0912 345 678</small>
+                            </td>
+                            <td>Combo Tiệc Cưới Hoàn Hảo</td>
+                            <td>01/11/2026</td>
+                            <td class="fw-bold text-danger">25.000.000đ</td>
+                            <td>
+                                <span class="badge bg-primary-subtle text-primary border border-primary px-3 py-1 rounded-pill" style="font-size: 12px;">Hoàn thành</span>
+                            </td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-secondary rounded-pill px-3" style="font-size: 12px;"><i class="fa-solid fa-eye me-1"></i> Chi tiết</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

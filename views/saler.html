@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventDecorWEB - Bảng điều khiển nhà cung cấp</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/saler.css">
+</head>
+
+<body class="bg-light">
+
+    <div class="app-container d-flex">
+        <!-- 1. Thanh Sidebar bên trái -->
+        <aside class="sidebar bg-white border-end p-3 d-flex flex-column justify-content-between"
+            style="min-height: 100vh;">
+            <div>
+                <div class="brand mb-4 px-2 d-flex align-items-center">
+                    <span class="text-danger fs-3 me-2"><i class="fa-solid fa-heart-pulse"></i></span>
+                    <div>
+                        <h4 class="fw-bold mb-0 text-dark">EventDecorWEB</h4>
+                        <small class="text-muted" style="font-size: 11px;">Kết nối hạnh phúc</small>
+                    </div>
+                </div>
+
+                <ul class="nav nav-pills flex-column mb-auto" id="sidebar-nav">
+                    <li class="nav-item mb-1">
+                        <a href="#" class="nav-link active bg-danger text-white menu-home" data-target="page-dashboard">
+                            <i class="fa-solid fa-house me-2"></i> Trang chủ
+                        </a>
+                    </li>
+
+                    <small class="text-muted text-uppercase fw-bold px-2 mb-2 mt-3 d-block"
+                        style="font-size: 10px;">Quản lý dịch vụ</small>
+                    <li>
+                        <a href="#" class="nav-link text-dark" data-target="iframe-list-service">
+                            <i class="fa-solid fa-list me-2"></i> Danh sách dịch vụ
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-dark" data-target="iframe-add-service">
+                            <i class="fa-solid fa-circle-plus me-2"></i> Thêm dịch vụ
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-dark" data-target="iframe-package">
+                            <i class="fa-solid fa-box-open me-2"></i> Gói dịch vụ
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-dark" data-target="iframe-calendar">
+                            <i class="fa-solid fa-calendar-days me-2"></i> Lịch trống
+                        </a>
+                    </li>
+
+                    <small class="text-muted text-uppercase fw-bold px-2 mb-2 mt-3 d-block"
+                        style="font-size: 10px;">Quản lý đơn hàng</small>
+                    <li>
+                        <a href="#" class="nav-link text-dark d-flex justify-content-between align-items-center"
+                            data-target="iframe-orders">
+                            <span><i class="fa-solid fa-file-invoice me-2"></i> Đơn hàng</span>
+                        </a>
+                    </li>
+
+                    <small class="text-muted text-uppercase fw-bold px-2 mb-2 mt-3 d-block"
+                        style="font-size: 10px;">Quản lý doanh thu</small>
+                    <li>
+                        <a href="../services/revenue.html" class="nav-link text-dark">
+                            <i class="fa-solid fa-chart-line me-2"></i> Thống kê doanh thu
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+
+            <div class="mt-4 pt-3 border-top">
+                <a href="#" class="nav-link text-danger fw-bold d-flex align-items-center">
+                    <i class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất
+                </a>
+            </div>
+        </aside>
+
+        <!-- 2. Khu vực nội dung chính bên phải -->
+        <main class="main-content flex-grow-1 p-4">
+
+            <!-- Header Top Bar -->
+            <header class="d-flex justify-content-between align-items-center mb-4">
+                <div class="search-bar w-50">
+                    <div class="input-group bg-white rounded-pill border px-3 py-1">
+                        <span class="input-group-text bg-transparent border-0 text-muted"><i
+                                class="fa-solid fa-magnifying-glass"></i></span>
+                        <input type="text" class="form-control border-0 shadow-none"
+                            placeholder="Tìm kiếm đơn hàng, dịch vụ, khách hàng...">
+                    </div>
+                </div>
+
+                <div class="user-profile d-flex align-items-center gap-3">
+                    <div class="position-relative cursor-pointer">
+                        <i class="fa-regular fa-bell fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            style="font-size: 9px;">3</span>
+                    </div>
+
+                    <div class="dropdown border-start ps-3">
+                        <div class="d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown"
+                            aria-expanded="false" role="button">
+                            <img src="../img/p1.png" alt="Avatar" class="rounded-circle" width="40" height="40"
+                                style="object-fit: cover;">
+                            <div>
+                                <h6 class="mb-0 fw-bold fs-6">Nhà hàng Happy Wedding</h6>
+                                <small class="text-muted" style="font-size: 12px;">Người bán</small>
+                            </div>
+                            <i class="fa-solid fa-chevron-down small text-muted ms-1"></i>
+                        </div>
+
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 rounded-3 py-2"
+                            style="min-width: 200px;">
+                            <li><a class="dropdown-item py-2" href="#"><i
+                                        class="fa-solid fa-user-gear me-2 text-muted"></i> Cài đặt tài khoản</a></li>
+                            <li><a class="dropdown-item py-2" href="#"><i class="fa-solid fa-store me-2 text-muted"></i>
+                                    Quản lý cửa hàng</a></li>
+                            <li>
+                                <hr class="dropdown-divider my-1">
+                            </li>
+                            <li><a class="dropdown-item py-2 text-danger fw-bold" href="#"><i
+                                        class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- TRANG 1: DASHBOARD CHÍNH -->
+            <section id="page-dashboard" class="content-page">
+                <div class="row g-4">
+                    <!-- Cột trái (8 phần) -->
+                    <div class="col-lg-8">
+                        <!-- Banner Chào mừng -->
+                        <div class="welcome-banner p-4 rounded-4 text-white position-relative overflow-hidden mb-4 shadow-sm"
+                            style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../img/wedding.png') center/cover;">
+                            <h2 class="fw-bold mb-2">Chào mừng, Nhà hàng Happy Wedding!</h2>
+                            <p class="mb-0 text-light opacity-75">Cùng tạo nên những khoảnh khắc hạnh phúc trọn vẹn cho
+                                các cặp đôi</p>
+                        </div>
+
+                        <!-- 4 Thẻ Thống kê nhanh -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 bg-white rounded-4 shadow-sm border-0 h-100">
+                                    <div
+                                        class="icon-box text-danger bg-danger-subtle rounded-3 p-2 d-inline-block mb-2">
+                                        <i class="fa-solid fa-calendar-plus"></i>
+                                    </div>
+                                    <small class="text-muted d-block" style="font-size: 11px;">Đơn đặt dịch vụ
+                                        mới</small>
+                                    <h3 class="fw-bold mb-1">5</h3>
+                                    <span class="text-danger" style="font-size: 11px;">cần xác nhận <i
+                                            class="fa-solid fa-arrow-right small"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 bg-white rounded-4 shadow-sm border-0 h-100">
+                                    <div
+                                        class="icon-box text-success bg-success-subtle rounded-3 p-2 d-inline-block mb-2">
+                                        <i class="fa-solid fa-wallet"></i>
+                                    </div>
+                                    <small class="text-muted d-block" style="font-size: 11px;">Doanh thu tháng
+                                        này</small>
+                                    <h5 class="fw-bold mb-1">125.000.000đ</h5>
+                                    <span class="text-success" style="font-size: 11px;"><i
+                                            class="fa-solid fa-arrow-up"></i> 12% <span class="text-muted">so với tháng
+                                            trước</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 bg-white rounded-4 shadow-sm border-0 h-100">
+                                    <div
+                                        class="icon-box text-primary bg-primary-subtle rounded-3 p-2 d-inline-block mb-2">
+                                        <i class="fa-solid fa-calendar-check"></i>
+                                    </div>
+                                    <small class="text-muted d-block" style="font-size: 11px;">Tổng đơn hoàn
+                                        thành</small>
+                                    <h3 class="fw-bold mb-1">18</h3>
+                                    <span class="text-muted" style="font-size: 11px;">trong tháng này <i
+                                            class="fa-solid fa-arrow-right small"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 bg-white rounded-4 shadow-sm border-0 h-100">
+                                    <div class="icon-box text-info bg-info-subtle rounded-3 p-2 d-inline-block mb-2"><i
+                                            class="fa-solid fa-box"></i></div>
+                                    <small class="text-muted d-block" style="font-size: 11px;">Dịch vụ đang hoạt
+                                        động</small>
+                                    <h3 class="fw-bold mb-1">8</h3>
+                                    <span class="text-info" style="font-size: 11px;">gói dịch vụ <i
+                                            class="fa-solid fa-arrow-right small"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bảng Đơn đặt dịch vụ gần đây -->
+                        <div class="bg-white p-4 rounded-4 shadow-sm mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="fw-bold mb-0">Đơn đặt dịch vụ gần đây</h5>
+                                <a href="#" class="text-danger text-decoration-none small fw-bold trigger-orders">Xem
+                                    tất cả <i class="fa-solid fa-chevron-right small"></i></a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table align-middle mb-0">
+                                    <thead class="text-muted bg-light" style="font-size: 12px;">
+                                        <tr>
+                                            <th>Mã đơn</th>
+                                            <th>Khách hàng</th>
+                                            <th>Dịch vụ</th>
+                                            <th>Ngày tổ chức</th>
+                                            <th>Trạng thái</th>
+                                            <th class="text-end">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="font-size: 13px;">
+                                        <tr>
+                                            <td class="fw-bold">#DV00125</td>
+                                            <td>Nguyễn Thị Mai</td>
+                                            <td>Trang trí tiệc cưới</td>
+                                            <td>20/12/2026</td>
+                                            <td><span
+                                                    class="badge bg-warning-subtle text-warning border border-warning px-2 py-1 rounded-pill">Chờ
+                                                    xác nhận</span></td>
+                                            <td class="text-end"><button
+                                                    class="btn btn-outline-danger btn-sm rounded-pill px-3 trigger-orders"
+                                                    style="font-size: 11px;">Xem chi tiết</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold">#DV00124</td>
+                                            <td>Trần Văn Hùng</td>
+                                            <td>Chụp ảnh cưới</td>
+                                            <td>15/12/2026</td>
+                                            <td><span
+                                                    class="badge bg-success-subtle text-success border border-success px-2 py-1 rounded-pill">Đã
+                                                    xác nhận</span></td>
+                                            <td class="text-end"><button
+                                                    class="btn btn-outline-danger btn-sm rounded-pill px-3 trigger-orders"
+                                                    style="font-size: 11px;">Xem chi tiết</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cột phải (4 phần - Hồ sơ & Thao tác nhanh) -->
+                    <div class="col-lg-4">
+                        <div class="bg-white p-3 rounded-4 shadow-sm mb-4">
+                            <img src="/img/restaurant-cover.png" alt="Nhà hàng" class="rounded-3 w-100 mb-3"
+                                style="height: 140px; object-fit: cover;">
+                            <h5 class="fw-bold mb-1">Nhà hàng Happy Wedding</h5>
+                            <p class="text-success small mb-2"><i class="fa-solid fa-circle small"></i> Đang hoạt động
+                            </p>
+                            <p class="text-warning small mb-2"><i class="fa-solid fa-star"></i> <strong>4.8</strong>
+                                (120 đánh giá)</p>
+                            <p class="text-muted small mb-1"><i class="fa-solid fa-location-dot me-2"></i> Địa chỉ: 123
+                                Nguyễn Văn Cừ, Q.1, TP. HCM</p>
+                            <p class="text-muted small mb-3"><i class="fa-solid fa-phone me-2"></i> SĐT: 0909 123 456
+                            </p>
+                            <button class="btn btn-outline-danger w-100 rounded-pill btn-sm fw-bold">Chỉnh sửa thông
+                                tin</button>
+                        </div>
+
+                        <div class="bg-white p-3 rounded-4 shadow-sm">
+                            <h6 class="fw-bold mb-3">Thao tác nhanh</h6>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <a href="#"
+                                        class="p-3 bg-danger-subtle text-danger rounded-3 text-center d-block text-decoration-none h-100 trigger-add-service">
+                                        <i class="fa-solid fa-plus fs-4 mb-1"></i>
+                                        <div class="small fw-bold">Thêm dịch vụ</div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#"
+                                        class="p-3 bg-primary-subtle text-primary rounded-3 text-center d-block text-decoration-none h-100 trigger-orders"
+                                        data-target="iframe-orders">
+                                        <i class="fa-solid fa-file-lines fs-4 mb-1"></i>
+                                        <div class="small fw-bold">Quản lý đơn hàng</div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#"
+                                        class="p-3 bg-success-subtle text-success rounded-3 text-center d-block text-decoration-none h-100 trigger-package"
+                                        data-target="iframe-package">
+                                        <i class="fa-solid fa-box-open fs-4 mb-1"></i>
+                                        <div class="small fw-bold">Gói dịch vụ</div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#"
+                                        class="p-3 bg-info-subtle text-info rounded-3 text-center d-block text-decoration-none h-100 trigger-calendar"
+                                        data-target="iframe-calendar">
+                                        <i class="fa-solid fa-calendar fs-4 mb-1"></i>
+                                        <div class="small fw-bold">Lịch trống</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TRANG 2: KHUNG CHỨA IFRAME (Ẩn mặc định) -->
+            <section id="iframe-add-service" class="content-page d-none">
+                <div class="bg-white rounded-4 shadow-sm overflow-hidden" style="height: 85vh;">
+                    <iframe src="../services/add.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+            </section>
+            <section id="iframe-list-service" class="content-page d-none">
+                <div class="bg-white rounded-4 shadow-sm overflow-hidden" style="height: 85vh;">
+                    <iframe src="../services/list.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+            </section>
+            <section id="iframe-orders" class="content-page d-none">
+                <div class="bg-white rounded-4 shadow-sm overflow-hidden" style="height: 85vh;">
+                    <iframe src="../services/orders.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+            </section>
+            <section id="iframe-calendar" class="content-page d-none">
+                <div class="bg-white rounded-4 shadow-sm overflow-hidden" style="height: 85vh;">
+                    <iframe src="../services/calendar.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+            </section>
+            <section id="iframe-package" class="content-page d-none">
+                <div class="bg-white rounded-4 shadow-sm overflow-hidden" style="height: 85vh;">
+                    <iframe src="../services/package.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script điều hướng tab mượt mà -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 1. Khai báo các phần tử giao diện (hỗ trợ cả Sidebar lẫn nút Thao tác nhanh)
+            const addServiceLinks = document.querySelectorAll('[data-target="iframe-add-service"], .trigger-add-service');
+            const listServiceLinks = document.querySelectorAll('[data-target="iframe-list-service"], .trigger-list');
+            const ordersLinks = document.querySelectorAll('[data-target="iframe-orders"], .trigger-orders');
+            const calendarLinks = document.querySelectorAll('[data-target="iframe-calendar"], .trigger-calendar');
+            const packageLinks = document.querySelectorAll('[data-target="iframe-package"], .trigger-package');
+            const homeLinks = document.querySelectorAll('.menu-home');
+
+            const dashboardSection = document.getElementById("page-dashboard");
+            const iframeAddService = document.getElementById("iframe-add-service");
+            const iframeListService = document.getElementById("iframe-list-service");
+            const iframeOrders = document.getElementById("iframe-orders");
+            const iframeCalendar = document.getElementById("iframe-calendar");
+            const iframePackage = document.getElementById("iframe-package");
+
+            const allNavLinks = document.querySelectorAll(".sidebar .nav-link");
+
+            // Hàm tiện ích: Ẩn tất cả các khung nội dung chính
+            function hideAllSections() {
+                if (dashboardSection) dashboardSection.classList.add("d-none");
+                if (iframeAddService) iframeAddService.classList.add("d-none");
+                if (iframeListService) iframeListService.classList.add("d-none");
+                if (iframeOrders) iframeOrders.classList.add("d-none");
+                if (iframeCalendar) iframeCalendar.classList.add("d-none");
+                if (iframePackage) iframePackage.classList.add("d-none");
+            }
+
+            // Hàm kích hoạt trạng thái active cho menu sidebar tương ứng
+            function setActiveSidebar(targetSelector) {
+                allNavLinks.forEach(l => l.classList.remove("active", "bg-danger", "text-white"));
+                const targetNav = document.querySelector(`.sidebar [data-target="${targetSelector}"]`);
+                if (targetNav) {
+                    targetNav.classList.add("active", "bg-danger", "text-white");
+                }
+            }
+
+            // 2. Sự kiện khi bấm vào "Thêm dịch vụ"
+            addServiceLinks.forEach(link => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    hideAllSections();
+                    if (iframeAddService) iframeAddService.classList.remove("d-none");
+                    setActiveSidebar("iframe-add-service");
+                });
+            });
+
+            // 3. Sự kiện khi bấm vào "Danh sách dịch vụ"
+            listServiceLinks.forEach(link => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    hideAllSections();
+                    if (iframeListService) iframeListService.classList.remove("d-none");
+                    setActiveSidebar("iframe-list-service");
+                });
+            });
+
+            // 4. Sự kiện khi bấm vào "Đơn đặt dịch vụ" / "Quản lý đơn hàng"
+            ordersLinks.forEach(link => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    hideAllSections();
+                    if (iframeOrders) iframeOrders.classList.remove("d-none");
+                    setActiveSidebar("iframe-orders");
+                });
+            });
+
+            // 5. Sự kiện khi bấm vào "Quản lý lịch" / "Lịch trống"
+            calendarLinks.forEach(link => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    hideAllSections();
+                    if (iframeCalendar) iframeCalendar.classList.remove("d-none");
+                    setActiveSidebar("iframe-calendar");
+                });
+            });
+
+            // 6. Sự kiện khi bấm vào "Gói dịch vụ"
+            packageLinks.forEach(link => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    hideAllSections();
+                    if (iframePackage) iframePackage.classList.remove("d-none");
+                    setActiveSidebar("iframe-package");
+                });
+            });
+
+            // 7. Sự kiện khi bấm về "Trang chủ"
+            homeLinks.forEach(link => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    hideAllSections();
+                    if (dashboardSection) dashboardSection.classList.remove("d-none");
+
+                    allNavLinks.forEach(l => l.classList.remove("active", "bg-danger", "text-white"));
+                    this.classList.add("active", "bg-danger", "text-white");
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo gói dịch vụ mới</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS tùy chỉnh trực tiếp -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .form-card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+        }
+
+        .service-checkbox-item {
+            border: 1px solid #dee2e6;
+            border-radius: 0.75rem;
+            padding: 12px 16px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .service-checkbox-item:hover {
+            border-color: #dc3545;
+            background-color: #fff5f5;
+        }
+
+        .service-checkbox-item input:checked ~ label {
+            font-weight: bold;
+            color: #dc3545;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-4" style="max-width: 900px;">
+        <!-- Tiêu đề trang & Nút quay lại -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold mb-0">Tạo gói dịch vụ</h3>
+                <p class="text-muted small mb-0">Gom nhiều dịch vụ thành một gói ưu đãi trọn gói thu hút khách hàng</p>
+            </div>
+            <a href="package.html" class="btn btn-outline-secondary rounded-pill px-4 btn-sm fw-bold">
+                <i class="fa-solid fa-arrow-left me-2"></i>Quay lại
+            </a>
+        </div>
+
+        <!-- Form nhập liệu chính -->
+        <div class="card form-card bg-white p-4 p-md-5">
+            <form>
+                <!-- Phần 1: Thông tin cơ bản -->
+                <h5 class="fw-bold text-danger mb-3"><i class="fa-solid fa-circle-info me-2"></i>1. Thông tin chung</h5>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-bold small text-muted">Tên gói combo <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control rounded-pill px-3 shadow-none" placeholder="Ví dụ: Gói Tiệc Cưới Kim Cương 2026">
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small text-muted">Danh mục / Loại sự kiện <span class="text-danger">*</span></label>
+                        <select class="form-select rounded-pill px-3 shadow-none">
+                            <option selected>Chọn danh mục...</option>
+                            <option value="wedding">Tiệc cưới trọn gói</option>
+                            <option value="birthday">Sinh nhật & Thôi nôi</option>
+                            <option value="gala">Hội nghị & Gala Dinner</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small text-muted">Giá trọn gói khuyến mãi (VNĐ) <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control rounded-pill px-3 shadow-none text-danger fw-bold" placeholder="Ví dụ: 15.000.000đ">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold small text-muted">Mô tả chi tiết gói combo</label>
+                    <textarea class="form-control rounded-4 p-3 shadow-none" rows="3" placeholder="Nhập các quyền lợi, cam kết hoặc chi tiết ưu đãi trong gói..."></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold small text-muted">Ảnh minh họa gói</label>
+                    <input type="file" class="form-control rounded-pill shadow-none">
+                </div>
+
+                <hr class="text-muted opacity-25 my-4">
+
+                <!-- Phần 2: Chọn các dịch vụ thành phần -->
+                <h5 class="fw-bold text-danger mb-3"><i class="fa-solid fa-list-check me-2"></i>2. Chọn các dịch vụ bao gồm trong gói</h5>
+                <p class="text-muted small mb-3">Tích chọn các dịch vụ đơn lẻ có sẵn để đưa vào combo này:</p>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <div class="service-checkbox-item d-flex align-items-center gap-3">
+                            <input class="form-check-input mt-0 fs-5" type="checkbox" value="" id="service1" checked>
+                            <label class="form-check-label w-100 cursor-pointer" for="service1">
+                                <div class="fw-bold">Trang trí sảnh tiệc cao cấp</div>
+                                <small class="text-muted">Danh mục: Trang trí sự kiện (1.500.000đ)</small>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="service-checkbox-item d-flex align-items-center gap-3">
+                            <input class="form-check-input mt-0 fs-5" type="checkbox" value="" id="service2" checked>
+                            <label class="form-check-label w-100 cursor-pointer" for="service2">
+                                <div class="fw-bold">MC dẫn chương trình sự kiện</div>
+                                <small class="text-muted">Danh mục: Nhân sự (2.000.000đ)</small>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="service-checkbox-item d-flex align-items-center gap-3">
+                            <input class="form-check-input mt-0 fs-5" type="checkbox" value="" id="service3">
+                            <label class="form-check-label w-100 cursor-pointer" for="service3">
+                                <div class="fw-bold">Trọn gói Âm thanh & Ánh sáng</div>
+                                <small class="text-muted">Danh mục: Thiết bị (3.500.000đ)</small>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="service-checkbox-item d-flex align-items-center gap-3">
+                            <input class="form-check-input mt-0 fs-5" type="checkbox" value="" id="service4">
+                            <label class="form-check-label w-100 cursor-pointer" for="service4">
+                                <div class="fw-bold">Quay phim & Chụp ảnh truyền thống</div>
+                                <small class="text-muted">Danh mục: Media (4.000.000đ)</small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút hành động submit -->
+                <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                    <button type="reset" class="btn btn-light rounded-pill px-4 fw-bold">Nhập lại</button>
+                    <button type="submit" class="btn btn-danger rounded-pill px-5 fw-bold shadow-sm">Lưu & Tạo gói</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

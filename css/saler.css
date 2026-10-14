@@ -1,0 +1,49 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 260px;
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.sidebar .nav-link {
+  font-size: 14px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #f1f3f5;
+  color: #dc3545 !important;
+}
+
+.sidebar .nav-link.active {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Main Content Adjustments */
+.main-content {
+  background-color: #f4f6f9;
+}
+
+/* Custom badges & Card styling */
+.rounded-4 {
+  border-radius: 1rem !important;
+}
+
+.table th {
+  font-weight: 600;
+  border-top: none;
+}
+
+.table td {
+  vertical-align: middle;
+}

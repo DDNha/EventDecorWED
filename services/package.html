@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WedPro - Quản lý Gói dịch vụ </title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS tùy chỉnh trực tiếp -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .package-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: none;
+            overflow: hidden;
+        }
+
+        .package-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.1)!important;
+        }
+
+        .card-img-top {
+            height: 190px;
+            object-fit: cover;
+        }
+
+        .service-tag {
+            font-size: 11px;
+            background-color: #f1f3f5;
+            color: #495057;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <div class="container-fluid py-4">
+        <!-- Tiêu đề và nút thao tác -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold mb-0">Quản lý Gói dịch vụ </h3>
+                <p class="text-muted small mb-0">Tạo và cấu hình các gói trọn gói ưu đãi dành riêng cho khách hàng đặt tiệc</p>
+            </div>
+            <a href="add-package.html" class="btn btn-danger rounded-pill px-4 fw-bold shadow-sm">
+                <i class="fa-solid fa-plus me-2"></i>Tạo gói combo mới
+            </a>
+        </div>
+
+        <!-- Bộ lọc nhanh trạng thái gói -->
+        <div class="d-flex gap-2 mb-4">
+            <button class="btn btn-danger btn-sm rounded-pill px-4 fw-bold">Tất cả (8)</button>
+            <button class="btn btn-outline-secondary btn-sm rounded-pill px-4">Đang áp dụng (6)</button>
+            <button class="btn btn-outline-secondary btn-sm rounded-pill px-4">Tạm ngưng (2)</button>
+        </div>
+
+        <!-- Danh sách các gói dịch vụ (Dạng Lưới / Grid) -->
+        <div class="row g-4">
+            
+            <!-- Gói 1: Tiệc Cưới Hoàn Hảo -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card package-card rounded-4 shadow-sm h-100 bg-white">
+                    <div class="position-relative">
+                        <img src="../img/wedding.png" class="card-img-top" alt="Gói Tiệc Cưới Hoàn Hảo">
+                        <span class="position-absolute top-0 end-0 m-3 badge bg-danger px-3 py-2 rounded-pill shadow-sm" style="font-size: 11px;">
+                            Tiết kiệm 15%
+                        </span>
+                    </div>
+                    <div class="card-body d-flex flex-column p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-danger-subtle text-danger px-3 py-1 rounded-pill fw-bold" style="font-size: 11px;">Combo Cưới VIP</span>
+                            <span class="text-success fw-bold small"><i class="fa-solid fa-circle me-1" style="font-size: 8px;"></i> Đang áp dụng</span>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">Gói Tiệc Cưới Hoàn Hảo</h5>
+                        <p class="card-text text-muted small mb-3">Giải pháp trọn gói toàn diện cho ngày trọng đại của các cặp đôi tại nhà hàng.</p>
+                        
+                        <!-- Danh sách dịch vụ bao gồm bên trong combo -->
+                        <div class="mb-3">
+                            <small class="text-muted d-block fw-bold mb-1" style="font-size: 11px; text-transform: uppercase;">Bao gồm các dịch vụ:</small>
+                            <div>
+                                <span class="service-tag"><i class="fa-solid fa-check text-success me-1"></i> Trang trí sảnh tiệc A</span>
+                                <span class="service-tag"><i class="fa-solid fa-check text-success me-1"></i> MC dẫn chương trình</span>
+                                <span class="service-tag"><i class="fa-solid fa-check text-success me-1"></i> Âm thanh & Ánh sáng</span>
+                                <span class="service-tag"><i class="fa-solid fa-check text-success me-1"></i> Quay phim & Chụp ảnh</span>
+                            </div>
+                        </div>
+
+                        <hr class="text-muted opacity-25 mt-auto">
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <small class="text-muted d-block" style="font-size: 11px;">Giá trọn gói combo</small>
+                                <h4 class="fw-bold text-danger mb-0">15.000.000đ</h4>
+                            </div>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-sm btn-outline-primary rounded-circle" title="Chỉnh sửa" style="width: 36px; height: 36px;">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger rounded-circle" title="Xóa" style="width: 36px; height: 36px;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gói 2: Sinh Nhật & Sự Kiện -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card package-card rounded-4 shadow-sm h-100 bg-white">
+                    <div class="position-relative">
+                        <img src="/img/birthday.png" class="card-img-top" alt="Gói Sinh Nhật Cao Cấp">
+                        <span class="position-absolute top-0 end-0 m-3 badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm fw-bold" style="font-size: 11px;">
+                            Bán chạy nhất
+                        </span>
+                    </div>
+                    <div class="card-body d-flex flex-column p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-warning-subtle text-warning border border-warning px-3 py-1 rounded-pill fw-bold" style="font-size: 11px;">Sự kiện & Tiệc</span>
+                            <span class="text-success fw-bold small"><i class="fa-solid fa-circle me-1" style="font-size: 8px;"></i> Đang áp dụng</span>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">Gói Sinh Nhật & Thôi Nôi</h5>
+                        <p class="card-text text-muted small mb-3">Không gian ấm cúng, lung linh màu sắc dành riêng cho các bé và gia đình.</p>
+                        
+                        <!-- Danh sách dịch vụ bao gồm bên trong combo -->
+                        <div class="mb-3">
+                            <small class="text-muted d-block fw-bold mb-1" style="font-size: 11px; text-transform: uppercase;">Bao gồm các dịch vụ:</small>
+                            <div>
+                                <span class="service-tag"><i class="fa-solid fa-check text-success me-1"></i> Trang trí bóng bay nghệ thuật</span>
+                                <span class="service-tag"><i class="fa-solid fa-check text-success me-1"></i> Bánh kem 3 tầng cao cấp</span>
+                                <span class="service-tag"><i class="fa-solid fa-check text-success me-1"></i> Backdrop check-in độc quyền</span>
+                            </div>
+                        </div>
+
+                        <hr class="text-muted opacity-25 mt-auto">
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <small class="text-muted d-block" style="font-size: 11px;">Giá trọn gói combo</small>
+                                <h4 class="fw-bold text-danger mb-0">4.500.000đ</h4>
+                            </div>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-sm btn-outline-primary rounded-circle" title="Chỉnh sửa" style="width: 36px; height: 36px;">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger rounded-circle" title="Xóa" style="width: 36px; height: 36px;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gói 3: Hội Nghị & Gặp Mặt -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card package-card rounded-4 shadow-sm h-100 bg-white">
+                    <div class="position-relative">
+                        <img src="../img/p2.png" class="card-img-top" alt="Gói Hội Nghị">
+                        <span class="position-absolute top-0 end-0 m-3 badge bg-secondary px-3 py-2 rounded-pill shadow-sm" style="font-size: 11px;">
+                            Doanh nghiệp
+                        </span>
+                    </div>
+                    <div class="card-body d-flex flex-column p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-primary-subtle text-primary px-3 py-1 rounded-pill fw-bold" style="font-size: 11px;">Hội nghị / Gala</span>
+                            <span class="text-muted fw-bold small"><i class="fa-solid fa-circle me-1 text-secondary" style="font-size: 8px;"></i> Tạm ngưng</span>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">Gói Hội Nghị & Gala Dinner</h5>
+                        <p class="card-text text-muted small mb-3">Setup tiêu chuẩn chuyên nghiệp phục vụ hội họp và sự kiện tri ân doanh nghiệp.</p>
+                        
+                        <!-- Danh sách dịch vụ bao gồm bên trong combo -->
+                        <div class="mb-3">
+                            <small class="text-muted d-block fw-bold mb-1" style="font-size: 11px; text-transform: uppercase;">Bao gồm các dịch vụ:</small>
+                            <div>
+                                <span class="service-tag"><i class="fa-solid fa-check text-success me-1"></i> Màn hình LED hội nghị</span>
+                                <span class="service-tag"><i class="fa-solid fa-check text-success me-1"></i> Bàn ghế setup chuẩn U-Shape</span>
+                                <span class="service-tag"><i class="fa-solid fa-check text-success me-1"></i> Tiệc trà Teabreak giữa giờ</span>
+                            </div>
+                        </div>
+
+                        <hr class="text-muted opacity-25 mt-auto">
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <small class="text-muted d-block" style="font-size: 11px;">Giá trọn gói combo</small>
+                                <h4 class="fw-bold text-danger mb-0">12.000.000đ</h4>
+                            </div>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-sm btn-outline-primary rounded-circle" title="Chỉnh sửa" style="width: 36px; height: 36px;">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger rounded-circle" title="Xóa" style="width: 36px; height: 36px;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
