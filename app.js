@@ -159,6 +159,10 @@ const mockProducts = [
     img: '/img/birthday.png',
     rating: 4.6,
     reviewsCount: 125,
+    category: 'decor',
+    unit: 'gói/ngày',
+    location: 'TP.HCM',
+    executionTime: 'Setup trước 3 tiếng',
     vendorName: 'PartyDesign VN',
     vendorAvatar: '/img/PDesigh.png',
     description: 'Gói trang trí sinh nhật cao cấp bao gồm cổng bóng nghệ thuật, bàn Gallery theo chủ đề, hệ thống đèn LED và phông nền thiết kế riêng.',
@@ -168,9 +172,29 @@ const mockProducts = [
       'Bàn Gallery trang trí đầy đủ phụ kiện & khay bánh',
       'Hệ thống đèn pha chiếu sáng khu vực check-in',
       'Nhân sự vận chuyển, lắp đặt và dọn dẹp trọn gói'
+    ],
+    colors: ['Đỏ', 'Vàng Kem', 'Hồng Pastel', 'Hồng Cam', 'Xanh Da Trời', 'Xanh Mint', 'Tím Hoa Cà'],
+    gifts: [
+      '01 Cổng hoa vải đi kèm phối đúng tone màu chủ đạo (Quà tặng không quy đổi thành tiền mặt)',
+      'Voucher giảm trực tiếp 20% khi quý khách nâng cấp lên gói Cổng hoa tươi'
+    ],
+    notes: [
+      'Màu sắc của gói sẽ được phối tone sur tone từ phông màn, nơ ghế, khăn bàn cho đến tem chai nước suối.',
+      'Bộ ấm tách trà và đĩa lót ly sử dụng 100% gốm sứ Minh Long cao cấp.',
+      'Bộ lư đồng, bát nhang, chân đèn được điêu khắc họa tiết Rồng, chạm nổi 3D sang trọng.',
+      'Gói cơ bản đã bao gồm bộ ghế Tiffany tiêu chuẩn cho tiệc.'
+    ],
+    pricingDetails: {
+      baseIncluded: 'Bao gồm trọn gói trang trí + 12 ghế Tiffany tiêu chuẩn',
+      extraItemFee: 'Phụ thu phát sinh thêm ghế: 600,000 VNĐ/gói/12 ghế tăng thêm',
+      deliveryNotes: 'Phụ thu 200,000 VNĐ/nhà đối với các trường hợp địa hình khó thi công: Nhà trong hẻm sâu xe tải không vào được, nhà chung cư không có thang máy, hoặc nhà phố thi công trên lầu cao không có thang tải.'
+    },
+    variants: [
+      { variantId: 'v1_gold', name: 'Tone Vàng Gold Hoàng Gia', colorCode: '#FFD700', variantImg: '/img/birthday-gold.png', priceModifier: 0 },
+      { variantId: 'v1_pink', name: 'Tone Hồng Pastel Công Chúa', colorCode: '#FFB6C1', variantImg: '/img/birthday-pink.png', priceModifier: 0 },
+      { variantId: 'v1_blue', name: 'Tone Xanh Dương Chrome Vũ Trụ', colorCode: '#1E90FF', variantImg: '/img/birthday-blue.png', priceModifier: 200000 }
     ]
   },
-
   { 
     id: 2, 
     name: 'Gói làm bánh & tiệc cho sự kiện', 
@@ -178,6 +202,10 @@ const mockProducts = [
     img: '/img/BanhvaSuKien.png',
     rating: 4.9,
     reviewsCount: 14,
+    category: 'catering',
+    unit: 'set/30 người',
+    location: 'TP.HCM',
+    executionTime: 'Giao trước giờ G 1 tiếng',
     vendorName: 'King Event Media',
     vendorAvatar: '/img/kingMedia.png',
     description: 'Cung cấp mâm tiệc Teabreak, bánh kem nghệ thuật và các loại bánh ngọt cao cấp phục vụ cho tiệc sinh nhật, hội thảo, khai trương.',
@@ -186,6 +214,25 @@ const mockProducts = [
       'Set bánh ngọt Teabreak 5 - 7 loại phong phú',
       'Trái cây tươi cắt sẵn theo mùa',
       'Dụng cụ ăn uống tự hủy thân thiện môi trường'
+    ],
+    colors: ['Trắng Kem', 'Hồng Pastel', 'Xanh Mint'],
+    gifts: [
+      'Tặng kèm 01 bộ dao cắt bánh cao cấp và 30 cây nến phục vụ tiệc',
+      'Miễn phí mượn kệ trưng bày bánh 3 tầng bằng pha lê sang trọng'
+    ],
+    notes: [
+      'Bánh được làm mới 100% trong ngày sự kiện diễn ra, không sử dụng chất bảo quản.',
+      'Đã bao gồm khay kệ setup bàn tiệc tiêu chuẩn tại vị trí khách hàng yêu cầu.',
+      'Quý khách cần báo trước các trường hợp dị ứng thực phẩm của khách mời (nếu có).'
+    ],
+    pricingDetails: {
+      baseIncluded: 'Set menu tiêu chuẩn định lượng vừa đủ cho 30 khách',
+      extraItemFee: 'Đặt thêm bánh ngọt lẻ: Phát sinh từ 25,000 VNĐ - 40,000 VNĐ/phần',
+      deliveryNotes: 'Miễn phí giao hàng bán kính 5km. Ngoại thành phụ thu phí ship tùy theo khoảng cách định vị của ứng dụng giao hàng.'
+    },
+    variants: [
+      { variantId: 'v2_european', name: 'Menu Tiệc Ngọt Kiểu Pháp', colorCode: '#D2B48C', variantImg: '/img/teabreak-france.png', priceModifier: 0 },
+      { variantId: 'v2_healthy', name: 'Menu Tiệc Healthy & Keto', colorCode: '#98FB98', variantImg: '/img/teabreak-healthy.png', priceModifier: 150000 }
     ]
   },
   { 
@@ -195,6 +242,10 @@ const mockProducts = [
     img: '/img/anhMC.png',
     rating: 4.6,
     reviewsCount: 125,
+    category: 'talent',
+    unit: 'người/4 tiếng',
+    location: 'Hà Nội',
+    executionTime: 'Có mặt trước giờ G 1.5 tiếng',
     vendorName: 'HoaBinh Events',
     vendorAvatar: '/img/HBGevent.png',
     description: 'Cung cấp MC nam/nữ chuyên nghiệp, ngoại hình đẹp, chất giọng truyền cảm, xử lý tình huống linh hoạt cho đám cưới, Year End Party, khai trương.',
@@ -203,6 +254,27 @@ const mockProducts = [
       'Soạn thảo và chốt kịch bản chi tiết cùng BTC',
       'Hỗ trợ tổng duyệt trước giờ G',
       'Tương tác và tổ chức Minigame khuấy động không khí'
+    ],
+    requirements: [
+      'Kỹ năng chuyên môn: Có kiến thức sâu về quản lý sự kiện, thiết kế dòng chảy chương trình và phối hợp bộ phận âm thanh, ánh sáng.',
+      'Kinh nghiệm: Tối thiểu 3 năm kinh nghiệm dẫn các sự kiện tương tự, nhạy bén trong xử lý tình huống phát sinh trên sân khấu.',
+      'Sự tỉ mỉ và chi tiết: Nghiên cứu kỹ thông tin đối tác, bám sát lịch trình timeline cốt lõi và kiểm soát chặt chẽ logistics nội dung.',
+      'Kỹ năng giao tiếp: Ngoại hình sáng, giọng nói chuẩn vùng miền, tương tác kết nối tốt với cả đội ngũ nhân sự lẫn khách mời.',
+      'Sáng tạo & Chịu áp lực: Khả năng tùy biến ngôn từ linh hoạt, giữ vững phong thái chuyên nghiệp và bình tĩnh dưới áp lực giờ giấc khẩn cấp.',
+      'Tính chuyên nghiệp và tôn trọng: Đảm bảo tác phong, trang phục đúng brief và duy trì thái độ chuẩn mực đối với toàn bộ khách hàng.'
+    ],
+    notes: [
+      'Trang phục MC tự chuẩn bị theo đúng tông màu (Dresscode) chủ đạo mà ban tổ chức yêu cầu.',
+      'MC sẽ chủ động liên hệ trực tiếp với bộ phận điều phối âm thanh (Audio Operator) trước sự kiện để khớp nhạc hiệu.'
+    ],
+    pricingDetails: {
+      baseIncluded: 'Phục vụ trong phạm vi nội thành Hà Nội (Bán kính dưới 15km) với thời gian tối đa 4 tiếng.',
+      overtimeFee: 'Phí phát sinh thêm giờ: 500,000 VNĐ / 1 tiếng phát sinh ngoài kịch bản.',
+      distanceFee: 'Chi phí đi xa (Ngoại thành/Tỉnh lân cận): Phụ thu 500,000 VNĐ chi phí di chuyển đường dài + Hỗ trợ phương tiện đi lại hoặc chi phí lưu trú nếu sự kiện kéo dài qua đêm.'
+    },
+    variants: [
+      { variantId: 'v3_vn_male', name: 'MC Nam - Tiếng Việt', colorCode: '#00008B', variantImg: '/img/mc-nam-vn.png', priceModifier: 0 },
+      { variantId: 'v3_bilingual', name: 'MC Song ngữ (Anh - Việt)', colorCode: '#4B0082', variantImg: '/img/mc-song-ngu.png', priceModifier: 1500000 }
     ]
   },
   { 
@@ -212,6 +284,10 @@ const mockProducts = [
     img: '/img/endYear.png',
     rating: 4.6,
     reviewsCount: 125,
+    category: 'decor',
+    unit: 'gói/ngày',
+    location: 'Hà Nội',
+    executionTime: 'Setup trước 6 tiếng',
     vendorName: 'HoaBinh Events',
     vendorAvatar: '/img/HBGevent.png',
     description: 'Trang trí trọn gói Year End Party hoành tráng cho doanh nghiệp với Backdrop chụp ảnh lớn, thảm đỏ, hiệu ứng ánh sáng sân khấu.',
@@ -220,6 +296,24 @@ const mockProducts = [
       'Thảm đỏ lối đi và khu vực check-in',
       'Hệ thống đèn LED chiếu sáng sân khấu',
       'Trang trí bàn tiệc VIP theo tone màu chủ đạo của công ty'
+    ],
+    colors: ['Đen Gold (Gatsy)', 'Đỏ Truyền Thống', 'Xanh Bạc (Futuristic)'],
+    gifts: [
+      'Tặng kèm 01 bảng Welcome đón khách thiết kế chuẩn theo bộ nhận diện thương hiệu công ty',
+      'Miễn phí lắp đặt hệ thống hashtag cầm tay chụp ảnh vui nhộn (Tối đa 10 cái)'
+    ],
+    notes: [
+      'Kích thước backdrop mặc định là 3x5m, sử dụng bạt hiflex chất lượng cao không xuyên sáng.',
+      'Toàn bộ kết cấu khung sắt thi công đều được gia cố tạ xích chịu lực chống lật an toàn.'
+    ],
+    pricingDetails: {
+      baseIncluded: 'Bao gồm toàn bộ nhân sự lắp đặt ban ngày và dọn dẹp tháo dỡ ngay sau khi tiệc kết thúc.',
+      extraItemFee: 'Mở rộng kích thước backdrop tăng thêm: 150,000 VNĐ / m² phát sinh.',
+      deliveryNotes: 'Miễn phí thi công trong các trung tâm hội nghị nội thành. Các mặt bằng yêu cầu thợ phải setup muộn sau 0h đêm sẽ phụ thu 15% phí tăng ca đêm của đội thợ.'
+    },
+    variants: [
+      { variantId: 'v4_gatsy', name: 'Concept Đêm Gatsy Thượng Lưu', colorCode: '#333333', variantImg: '/img/yep-gatsy.png', priceModifier: 0 },
+      { variantId: 'v4_neon', name: 'Concept Cyberpunk / Neon Futuristic', colorCode: '#FF00FF', variantImg: '/img/yep-neon.png', priceModifier: 500000 }
     ]
   },
   { 
@@ -229,6 +323,10 @@ const mockProducts = [
     img: '/img/quayPhim.png',
     rating: 4.6,
     reviewsCount: 125,
+    category: 'media',
+    unit: 'gói/buổi',
+    location: 'TP.HCM',
+    executionTime: 'Có mặt trước giờ G 30 phút',
     vendorName: 'King Event Media',
     vendorAvatar: '/img/kingMedia.png',
     description: 'Đội ngũ thợ chụp ảnh và quay phim chuyên nghiệp ghi lại những khoảnh khắc đáng nhớ trong sự kiện với thiết bị máy quay 4K hiện đại.',
@@ -237,6 +335,24 @@ const mockProducts = [
       'Giao toàn bộ file ảnh gốc ngay sau sự kiện',
       'Chỉnh sửa (edit) 50-100 ảnh đẹp nhất',
       'Dựng 1 video Highlight sự kiện dài 2 - 3 phút'
+    ],
+    gifts: [
+      'Tặng 01 ảnh tập thể khung gỗ lớn cỡ 20x30cm in ép gỗ cao cấp giao tận nơi.',
+      'Lưu trữ dữ liệu ảnh gốc miễn phí trên hệ thống Cloud của Vendor trong vòng 6 tháng.'
+    ],
+    notes: [
+      'Toàn bộ file ảnh gốc (định dạng JPG) sẽ được bàn giao qua Google Drive hoặc link nội bộ trong vòng 24 giờ sau khi sự kiện kết thúc.',
+      'Video Highlight đã chỉnh sửa hoàn thiện sẽ được bàn giao sau 3 - 5 ngày làm việc.',
+      'Quý khách có quyền yêu cầu chỉnh sửa lại video tối đa 2 lần miễn phí nếu chưa đúng ý.'
+    ],
+    pricingDetails: {
+      baseIncluded: 'Gói chụp/quay tiêu chuẩn trong 4 tiếng nội thành TP.HCM',
+      overtimeFee: 'Phụ thu quay/chụp ngoài giờ: 400,000 VNĐ / 1 tiếng phát sinh.',
+      distanceFee: 'Chi phí đi xa (Ngoại thành/Tỉnh lân cận): Phụ thu 500,000 VNĐ chi phí di chuyển đường dài.'
+    },
+    variants: [
+      { variantId: 'v5_standard', name: 'Cơ bản (1 Máy chụp)', colorCode: '#C0C0C0', variantImg: '/img/media-standard.png', priceModifier: 0 },
+      { variantId: 'v5_premium', name: 'Nâng cấp (1 Chụp + 1 Quay 4K)', colorCode: '#2F4F4F', variantImg: '/img/media-premium.png', priceModifier: 2000000 }
     ]
   },
   { 
@@ -246,6 +362,10 @@ const mockProducts = [
     img: '/img/hoaCuoi.png',
     rating: 4.6,
     reviewsCount: 125,
+    category: 'floral',
+    unit: 'bộ',
+    location: 'TP.HCM',
+    executionTime: 'Giao trước giờ G 2 tiếng',
     vendorName: 'PartyDesign VN',
     vendorAvatar: '/img/PDesigh.png',
     description: 'Cung cấp hoa tươi/hoa lụa nghệ thuật làm hoa cài áo, hoa cầm tay cô dâu, hoa để bàn tiệc cho các sự kiện cưới hỏi, hội nghị.',
@@ -254,6 +374,25 @@ const mockProducts = [
       'Hoa cài áo chú rể / khách mời VIP',
       'Lọ hoa tươi để bàn đại biểu / bàn tiệc',
       'Giao hàng tận nơi trước thời gian diễn ra sự kiện'
+    ],
+    colors: ['Hồng Pastel', 'Trắng Pure', 'Đỏ Rượu Bordeaux', 'Vàng Nắng'],
+    gifts: [
+      'Tặng 01 hộp bảo quản hoa chuyên dụng giữ hoa tươi suốt 12 tiếng.',
+      'Voucher giảm 10% khi đặt hoa trang trí xe cưới.'
+    ],
+    notes: [
+      'Hoa tươi được tuyển chọn kỹ từ nhà vườn Đà Lạt, cắm mới 100% trước giờ giao.',
+      'Kiểu dáng hoa cầm tay và hoa cài áo phối đồng bộ theo đúng màu sắc sự kiện.'
+    ],
+    pricingDetails: {
+      baseIncluded: 'Bao gồm 1 bó hoa cầm tay + 1 hoa cài áo chú rể',
+      extraItemFee: 'Thêm hoa cài áo đại biểu: 30,000 VNĐ / cái',
+      deliveryNotes: 'Miễn phí giao hàng trong bán kính 5km.'
+    },
+    variants: [
+      { variantId: 'v6_silk', name: 'Hoa Lụa Cao Cấp', colorCode: '#FFE4E1', variantImg: '/img/flower-silk.png', priceModifier: 0 },
+      { variantId: 'v6_fresh_local', name: 'Hoa Tươi Nội Địa (Đà Lạt)', colorCode: '#FFD700', variantImg: '/img/flower-local.png', priceModifier: 200000 },
+      { variantId: 'v6_fresh_import', name: 'Hoa Tươi Nhập Khẩu (Hà Lan/Ecuador)', colorCode: '#FF0000', variantImg: '/img/flower-import.png', priceModifier: 900000 }
     ]
   }
 ];
