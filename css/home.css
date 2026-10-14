@@ -141,7 +141,7 @@ footer {
 /* Dải màu phía trên, tiêu đề là tab trắng nhô lên dải */
 .featured-band {
   height: 28px;
-  background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+  /* background: linear-gradient(90deg, var(--brand-1), var(--brand-2)); */
 }
 
 .featured-tab {
