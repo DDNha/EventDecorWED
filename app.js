@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 nunjucks.configure("views", {
   autoescape: true,
   express: app,
-  noCache: true,
+  noCache: process.env.NODE_ENV === "development",
 });
 app.set("view engine", "html");
 
@@ -49,7 +49,7 @@ const pool = mysql.createPool({
 
 async function testConnection() {
   try {
-    await pool.getConnection();
+    await pool.query("SELECT 1");
     console.log("Kết nối MySQL thành công!");
   } catch (error) {
     console.error("Lỗi kết nối hoặc truy vấn:", error);
@@ -109,9 +109,33 @@ app.get("/partner", async (req, res) => {
     res.status(500).send("Lỗi truy vấn database");
   }
 });
-app.get("/partner/:id", (req, res) => {
-  const id = req.params.id;
-  res.render("detailed-partner.html");
+app.get("/partner/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id) || id < 1) {
+    return res.status(404).send("Không tìm thấy đối tác");
+  }
+
+  try {
+    const sql = `
+      SELECT p.name, p.image, p.description, p.address, p.phone, p.email,
+             s.name AS specialty_name
+      FROM partners p
+      JOIN partner_specialties ps ON ps.partner_id = p.id
+      JOIN specialties s ON s.id = ps.specialty_id
+      WHERE p.id = ?`;
+    const [rows] = await pool.query(sql, [id]);
+    if (rows.length === 0) {
+      return res.status(404).send("Không tìm thấy đối tác");
+    }
+
+    return res.render("detailed-partner.html", {
+      parts: rows[0],
+      spec: rows.map((r) => r.specialty_name),
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Lỗi truy vấn database");
+  }
 });
 app.get("/contact", (req, res) => {
   res.render("contact.html");

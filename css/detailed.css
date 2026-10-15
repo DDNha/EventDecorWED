@@ -74,6 +74,10 @@ body {
   place-items: center;
   min-height: 300px;
 }
+.logo-img {
+  max-width: 100%;
+  height: 100%;
+}
 .logo .p {
   width: 170px;
   height: 200px;
@@ -204,11 +208,9 @@ h2 {
 .svc b {
   display: block;
   margin-bottom: 4px;
+  color: white;
 }
-.svc span {
-  color: var(--muted);
-  font-size: 15px;
-}
+
 .clients {
   display: flex;
   gap: 10px;

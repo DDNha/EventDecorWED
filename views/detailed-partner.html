@@ -15,16 +15,18 @@
 <div class="container mb-4 mt-4">
   <section class="hero">
     <div class="logo">
-        <img class="" alt=""></img>
+        <img class="logo-img" src="{{parts.image}}" alt="{{parts.name}}"></img>
     </div>
     <div class="hero-body">
-      <h1>PartyDesign VN</h1>
+      <h1>{{parts.name}}</h1>
       <p>
         Đối tác tin cậy của nhiều thương hiệu lớn như Acer, Vietcombank,
         Pepsico.
       </p>
       <div class="actions">
         <a class="btn primary" href="#lien-he">Liên hệ đối tác</a>
+        <a class="btn btn-danger" href="#lien-he">Báo cáo & khiếu nại</a>
+
       </div>
     </div>
   </section>
@@ -34,47 +36,31 @@
       <article class="card">
         <h2>Giới thiệu</h2>
         <p>
-          PartyDesign VN thiết kế và triển khai sự kiện trọn gói cho doanh
-          nghiệp, từ ý tưởng, trang trí đến điều phối chương trình trong ngày.
-        </p>
-        <p>
-          Nội dung mô tả chi tiết sẽ được cập nhật theo thông tin do đối tác
-          cung cấp.
+            {{parts.description}}
         </p>
       </article>
 
       <article class="card">
         <h2>Dịch vụ chính</h2>
         <div class="services">
+          {% for s in spec %}
           <div class="svc">
-            <b>Thiết kế sự kiện</b
-            ><span>Concept, sân khấu, trang trí theo chủ đề.</span>
+            <b>{{s}}</b>
           </div>
-          <div class="svc">
-            <b>Tiệc cuối năm</b
-            ><span>Tổ chức tiệc tất niên và gala dinner.</span>
-          </div>
-          <div class="svc">
-            <b>Sự kiện thương hiệu</b
-            ><span>Ra mắt sản phẩm, tri ân khách hàng.</span>
-          </div>
-          <div class="svc">
-            <b>Điều phối chương trình</b
-            ><span>Kịch bản, MC, âm thanh ánh sáng.</span>
-          </div>
+          {% endfor %}
         </div>
       </article>
     </div>
 
     <aside class="card side" id="lien-he">
       <h2>Thông tin liên hệ</h2>
-      <dl>
+      <dl class="text-white" >
         <dt>Địa chỉ</dt>
-        <dd>Đang cập nhật</dd>
+        <dd>{{parts.address or "Đang cập nhật" }}</dd>
         <dt>Điện thoại</dt>
-        <dd>Đang cập nhật</dd>
+        <dd>{{parts.phone or "Đang cập nhật" }}</dd>
         <dt>Email</dt>
-        <dd>Đang cập nhật</dd>
+        <dd>{{parts.email or "Đang cập nhật" }}</dd>
       </dl>
     </aside>
   </div>
