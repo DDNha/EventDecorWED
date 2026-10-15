@@ -65,11 +65,21 @@ function isAuthenticated(req, res, next) {
 }
 
 // ---------------- ROUTES ----------------
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   if (!req.session) {
     return res.redirect('/login');
   }
-  res.render('index.html');
+  try{
+    const [partners] = await pool.query(
+  `SELECT * From partners`);
+    res.render('index.html', {
+          part: partners
+
+    });
+  }catch (error) {
+    console.error(error);
+    res.status(500).send("Lỗi truy vấn database");
+  }
 });
 
 app.get('/about', (req, res) => {

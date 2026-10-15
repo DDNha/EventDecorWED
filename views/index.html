@@ -163,53 +163,23 @@
     <p class="partners-sub">Các đối tác uy tín chất lượng được nhiều khách hàng tin tưởng</p>
 
     <div class="row g-4">
-
+        {%for p in part%}
       <div class="col-12 col-md-6 col-lg-4">
-        <a href="/partners/1" class="partner-card">
+        <a href="/partner/{{ p.id }}" class="partner-card">
           <div class="partner-logo-wrap">
-            <img src="/img/HBGevent.png" alt="Logo HoaBinh Events">
+            <img src="{{ p.image }}" alt="{{ p.name }}">
           </div>
-          <h3 class="partner-name">HoaBinh Events</h3>
+          <h3 class="partner-name">{{ p.name }}</h3>
           <p class="partner-desc">
-            Công ty tổ chức sự kiện uy tín chuyên cung cấp trọn gói nhân sự, kịch bản,
-            trang trí tiệc sinh nhật, tiệc tri ân và Year End Party cho khách hàng cá nhân
-            lẫn doanh nghiệp
+           {{ p.description }}
           </p>
         </a>
       </div>
-
-      <!-- Đối tác 2 -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <a href="/partners/2" class="partner-card">
-          <div class="partner-logo-wrap">
-            <img src="/img/PDesigh.png" alt="Logo PartyDesign VN">
-          </div>
-          <h3 class="partner-name">PartyDesign VN</h3>
-          <p class="partner-desc">
-            Chuyên gia thiết kế, trang trí và tổ chức tiệc thôi nôi, sinh nhật cho bé
-            cùng các dịch vụ decor sự kiện, kỷ niệm thành lập doanh nghiệp tại khu vực phía Nam
-          </p>
-        </a>
-      </div>
-
-      <!-- Đối tác 3 -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <a href="/partners/3" class="partner-card">
-          <div class="partner-logo-wrap">
-            <img src="/img/kingMedia.png" alt="Logo King Event Media">
-          </div>
-          <h3 class="partner-name">King Event Media</h3>
-          <p class="partner-desc">
-            Đối tác nổi bật trong lĩnh vực trang trí bong bóng nghệ thuật, backdrop và
-            tổ chức trọn gói các bữa tiệc sinh nhật, thôi nôi, sự kiện kỷ niệm
-          </p>
-        </a>
-      </div>
-
+  {% endfor %}  
     </div>
 
     <div class="text-center mt-5">
-      <a href="/partners" class="btn-viewall">Xem tất cả</a>
+      <a href="/partner" class="btn-viewall">Xem tất cả</a>
     </div>
   </div>
 </section>
