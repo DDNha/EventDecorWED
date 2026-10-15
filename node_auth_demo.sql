@@ -78,3 +78,15 @@ VALUES
 (2, 4),
 (3, 3),
 (3, 4);
+CREATE TABLE employee_rated (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    image VARCHAR(255),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+INSERT INTO employee_rated (name, image, description)
+values
+('Taylor Swift','/img/people_employee/avatar1.png', 'Môi trường làm việc vô cùng chuyên nghiệp và sáng tạo, đáp ứng hoàn hảo mọi quy mô sự kiện. Đội ngũ hỗ trợ nhiệt tình, giúp mọi khâu tổ chức diễn ra suôn sẻ.'),
+('Sơn Tùng','/img/people_employee/avatar2.png','Dịch vụ tổ chức sự kiện rất ấn tượng, từ khâu lên ý tưởng đến trang trí đều được thực hiện chỉn chu. Tôi hoàn toàn hài lòng với chất lượng và sự chuyên nghiệp của đội ngũ.'),
+('Thanh Hải','/img/people_employee/avatar3.png','Đội ngũ làm việc tận tâm, tư vấn rõ ràng và đáp ứng tốt các yêu cầu của khách hàng. Không gian sự kiện được trang trí đẹp mắt, chi phí hợp lý và đúng với mong đợi.')

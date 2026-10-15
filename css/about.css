@@ -12,3 +12,11 @@
   min-height: 185px;
   border-radius: 20px;
 }
+.partner-avatar {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  display: block;
+}

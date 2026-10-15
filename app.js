@@ -82,8 +82,19 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.get('/about', (req, res) => {
-  res.render('aboutus.html');
+app.get('/about', async (req, res) => {
+  try{
+     const [rated] = await pool.query(
+      `SELECT * From employee_rated`
+     )
+       res.render('aboutus.html', {
+          rated : rated
+       });
+
+  }catch(err){
+     console.error(err);
+    res.status(500).send("Lỗi truy vấn database");
+  }
 });
 
 app.get('/services',  (req, res) => {
