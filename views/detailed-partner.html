@@ -1,0 +1,101 @@
+{% extends "base.html" %} {% block title %}Đối tác{% endblock title %}
+
+    {% block css %}    
+    <link rel="stylesheet" href="/css/detailed.css" />
+    {% endblock css %}
+
+{% block header %}
+<div
+  class="container header-page d-flex justify-content-center align-items-center"
+>
+  <h1 class="fw-bold text-white">Đối tác</h1>
+</div>
+{% endblock header %} {% block content %}
+
+<div class="container mb-4 mt-4">
+  <section class="hero">
+    <div class="logo">
+        <img class="" alt=""></img>
+    </div>
+    <div class="hero-body">
+      <h1>PartyDesign VN</h1>
+      <p>
+        Đối tác tin cậy của nhiều thương hiệu lớn như Acer, Vietcombank,
+        Pepsico.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="#lien-he">Liên hệ đối tác</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <div>
+      <article class="card">
+        <h2>Giới thiệu</h2>
+        <p>
+          PartyDesign VN thiết kế và triển khai sự kiện trọn gói cho doanh
+          nghiệp, từ ý tưởng, trang trí đến điều phối chương trình trong ngày.
+        </p>
+        <p>
+          Nội dung mô tả chi tiết sẽ được cập nhật theo thông tin do đối tác
+          cung cấp.
+        </p>
+      </article>
+
+      <article class="card">
+        <h2>Dịch vụ chính</h2>
+        <div class="services">
+          <div class="svc">
+            <b>Thiết kế sự kiện</b
+            ><span>Concept, sân khấu, trang trí theo chủ đề.</span>
+          </div>
+          <div class="svc">
+            <b>Tiệc cuối năm</b
+            ><span>Tổ chức tiệc tất niên và gala dinner.</span>
+          </div>
+          <div class="svc">
+            <b>Sự kiện thương hiệu</b
+            ><span>Ra mắt sản phẩm, tri ân khách hàng.</span>
+          </div>
+          <div class="svc">
+            <b>Điều phối chương trình</b
+            ><span>Kịch bản, MC, âm thanh ánh sáng.</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <aside class="card side" id="lien-he">
+      <h2>Thông tin liên hệ</h2>
+      <dl>
+        <dt>Địa chỉ</dt>
+        <dd>Đang cập nhật</dd>
+        <dt>Điện thoại</dt>
+        <dd>Đang cập nhật</dd>
+        <dt>Email</dt>
+        <dd>Đang cập nhật</dd>
+      </dl>
+    </aside>
+  </div>
+
+  <section class="more">
+    <h2>Đối tác khác</h2>
+    <div class="mini-row">
+      <a class="mini" href="#"
+        ><span
+          >HoaBinh Events<small
+            >Hội nghị, sự kiện và du lịch (MICE)</small
+          ></span
+        ><span aria-hidden="true">›</span></a
+      >
+      <a class="mini" href="#"
+        ><span
+          >Á Châu Event<small>Teambuilding, tiệc cuối năm (YEP)</small></span
+        ><span aria-hidden="true">›</span></a
+      >
+    </div>
+  </section>
+</div>
+
+{% endblock content %}

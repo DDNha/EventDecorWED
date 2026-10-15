@@ -18,6 +18,7 @@ CREATE TABLE partners (
     description TEXT,
     address VARCHAR(255),
     phone VARCHAR(20),
+    email VARCHAR(20),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE specialties (
@@ -46,28 +47,31 @@ VALUES
 ('Khai Trương'),
 ('Thôi Nôi');
 INSERT INTO partners
-(name, image, description, address, phone)
+(name, image, description, address, phone, email)
 VALUES
 (
     'PartyDesign VN',
     '/img/partners/partydesn.png',
     'Đối tác tin cậy của nhiều thương hiệu lớn như Acer, Vietcombank, Pepsico',
     'TP. Hồ Chí Minh',
-    '0901234567'
+    '0901234567',
+    'contact@partydesign.com'
 ),
 (
     'HoaBinh Events',
     '/img/partners/hoabinh.png',
     'Đơn vị tổ chức hội nghị, sự kiện và du lịch (MICE) quy mô lớn trên toàn quốc.',
     'TP. Hồ Chí Minh',
-    '0912345678'
+    '0912345678',
+    'info@hoabinh-events.com'
 ),
 (
     'Á Châu Event',
     '/img/partners/achauevent.png',
     'Mạnh về tổ chức teambuilding, tiệc cuối năm (YEP) và sự kiện doanh nghiệp.',
     'Bình Dương',
-    '0923456789'
+    '0923456789',
+    'contact@achauevent.com'
 );
 INSERT INTO partner_specialties (partner_id, specialty_id)
 VALUES
