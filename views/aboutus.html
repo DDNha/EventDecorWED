@@ -52,22 +52,26 @@
     Trở thành thành viên của chúng tôi đồng nghĩa với việc bạn bước vào một cộng đồng năng động.
   </p>
   <div class="d-flex gap-4">
+    {% for r in rated %}
     <div class="card card-partner p-3">
       <div class="row align-items-center">
         <div class="col-4">
-          <img class="img-fluid rounded-circle" src="/images/avatar-placeholder.jpg" alt="Taylor Swift" />
+          <img class="img-fluid rounded-circle partner-avatar " src="{{r.image}}" alt="{{r.name}}" />
         </div>
         <div class="col-8">
-          <h5 class="card-title fw-bold m-0">Taylor Swift</h5>
-          <small class="text-muted">20 tháng 09 năm 2026</small>
+          <h5 class="card-title fw-bold m-0">{{r.name}}</h5>
+          <small class="text-muted">{{r.created_at.toLocaleDateString('vi-VN')}}</small>
         </div>
       </div>
       <div class="card-body px-0 pb-0">
         <p class="card-text mb-0">
-          Môi trường làm việc vô cùng chuyên nghiệp và sáng tạo, đáp ứng hoàn hảo mọi quy mô sự kiện.
+          {{r.description}}
         </p>
       </div>
     </div>
+     {% else %}
+    <h2 style="color: red;" class="text-center">Lỗi chưa có dữ liệu.</h2>
+    {% endfor %} 
   </div>
 </div>
 {% endblock content %}
