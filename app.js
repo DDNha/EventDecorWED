@@ -35,27 +35,27 @@ nunjucks.configure('views', {
 });
 app.set('view engine', 'html');
 
-// //Kết nối SQL
-// const pool = mysql.createPool({
-//   host: 'localhost',
-//   user: 'root',
-//   password: 'hello', // Điền mật khẩu MySQL của bạn
-//   database: 'node_auth_demo', // Tên database cần kết nối
-//   waitForConnections: true,
-//   connectionLimit: 10,
-//   queueLimit: 0
-// });
+//Kết nối SQL
+const pool = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: 'hello', // Điền mật khẩu MySQL của bạn
+  database: 'node_auth_demo', // Tên database cần kết nối
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
-// async function testConnection() {
-//   try {
-//     await pool.getConnection();
-//     console.log('Kết nối MySQL thành công!');
-//   } catch (error) {
-//     console.error('Lỗi kết nối hoặc truy vấn:', error);
-//   }
-// }
+async function testConnection() {
+  try {
+    await pool.getConnection();
+    console.log('Kết nối MySQL thành công!');
+  } catch (error) {
+    console.error('Lỗi kết nối hoặc truy vấn:', error);
+  }
+}
 
-// // testConnection().then(); // Tạm tắt nếu máy chưa có MySQL
+ testConnection().then(); 
 
 // Middleware kiểm tra xem người dùng đã đăng nhập chưa
 function isAuthenticated(req, res, next) {
