@@ -9,6 +9,7 @@ const mysql = require('mysql2/promise');
 // Middleware đọc dữ liệu từ Form POST
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static('public'));
 
 // Cấu hình Express Session
 app.use(session({
@@ -175,8 +176,8 @@ const mockProducts = [
     ],
     colors: ['Đỏ', 'Vàng Kem', 'Hồng Pastel', 'Hồng Cam', 'Xanh Da Trời', 'Xanh Mint', 'Tím Hoa Cà'],
     gifts: [
-      '01 Cổng hoa vải đi kèm phối đúng tone màu chủ đạo (Quà tặng không quy đổi thành tiền mặt)',
-      'Voucher giảm trực tiếp 20% khi quý khách nâng cấp lên gói Cổng hoa tươi'
+      ' Tặng phiếu giảm giá hoặc thẻ thành viên VIP cho lần ghé thăm tiếp theo)',
+      'Miễn phí hoặc hỗ trợ sử dụng hệ thống loa, micro, màn hình LED, hoặc máy chiếu để chiếu slide ảnh/video kỷ niệm.'
     ],
     notes: [
       'Màu sắc của gói sẽ được phối tone sur tone từ phông màn, nơ ghế, khăn bàn cho đến tem chai nước suối.',
@@ -190,8 +191,8 @@ const mockProducts = [
       deliveryNotes: 'Phụ thu 200,000 VNĐ/nhà đối với các trường hợp địa hình khó thi công: Nhà trong hẻm sâu xe tải không vào được, nhà chung cư không có thang máy, hoặc nhà phố thi công trên lầu cao không có thang tải.'
     },
     variants: [
-      { variantId: 'v1_gold', name: 'Tone Vàng Gold Hoàng Gia', colorCode: '#FFD700', variantImg: '/img/birthday-gold.png', priceModifier: 0 },
-      { variantId: 'v1_pink', name: 'Tone Hồng Pastel Công Chúa', colorCode: '#FFB6C1', variantImg: '/img/birthday-pink.png', priceModifier: 0 },
+      { variantId: 'v1_gold', name: 'Tone Vàng Gold Hoàng Gia', colorCode: '#FFD700', variantImg: '/img/birthday.png', priceModifier: 0 },
+      { variantId: 'v1_pink', name: 'Tone Hồng Pastel Công Chúa', colorCode: '#FFB6C1', variantImg: '/img/birthday-pink.png', priceModifier: 100000 },
       { variantId: 'v1_blue', name: 'Tone Xanh Dương Chrome Vũ Trụ', colorCode: '#1E90FF', variantImg: '/img/birthday-blue.png', priceModifier: 200000 }
     ]
   },
@@ -231,7 +232,7 @@ const mockProducts = [
       deliveryNotes: 'Miễn phí giao hàng bán kính 5km. Ngoại thành phụ thu phí ship tùy theo khoảng cách định vị của ứng dụng giao hàng.'
     },
     variants: [
-      { variantId: 'v2_european', name: 'Menu Tiệc Ngọt Kiểu Pháp', colorCode: '#D2B48C', variantImg: '/img/teabreak-france.png', priceModifier: 0 },
+      { variantId: 'v2_european', name: 'Menu Tiệc Ngọt Kiểu Pháp', colorCode: '#D2B48C', variantImg: '/img/BanhvaSuKien.png', priceModifier: 0 },
       { variantId: 'v2_healthy', name: 'Menu Tiệc Healthy & Keto', colorCode: '#98FB98', variantImg: '/img/teabreak-healthy.png', priceModifier: 150000 }
     ]
   },
@@ -244,8 +245,8 @@ const mockProducts = [
     reviewsCount: 125,
     category: 'talent',
     unit: 'người/4 tiếng',
-    location: 'Hà Nội',
-    executionTime: 'Có mặt trước giờ G 1.5 tiếng',
+    location: 'TP.HCM',
+    executionTime: 'Có mặt trước giờ G 1. tiếng',
     vendorName: 'HoaBinh Events',
     vendorAvatar: '/img/HBGevent.png',
     description: 'Cung cấp MC nam/nữ chuyên nghiệp, ngoại hình đẹp, chất giọng truyền cảm, xử lý tình huống linh hoạt cho đám cưới, Year End Party, khai trương.',
@@ -257,7 +258,7 @@ const mockProducts = [
     ],
     requirements: [
       'Kỹ năng chuyên môn: Có kiến thức sâu về quản lý sự kiện, thiết kế dòng chảy chương trình và phối hợp bộ phận âm thanh, ánh sáng.',
-      'Kinh nghiệm: Tối thiểu 3 năm kinh nghiệm dẫn các sự kiện tương tự, nhạy bén trong xử lý tình huống phát sinh trên sân khấu.',
+      'Kinh nghiệm: Tối thiểu 1 năm kinh nghiệm dẫn các sự kiện tương tự, nhạy bén trong xử lý tình huống phát sinh trên sân khấu.',
       'Sự tỉ mỉ và chi tiết: Nghiên cứu kỹ thông tin đối tác, bám sát lịch trình timeline cốt lõi và kiểm soát chặt chẽ logistics nội dung.',
       'Kỹ năng giao tiếp: Ngoại hình sáng, giọng nói chuẩn vùng miền, tương tác kết nối tốt với cả đội ngũ nhân sự lẫn khách mời.',
       'Sáng tạo & Chịu áp lực: Khả năng tùy biến ngôn từ linh hoạt, giữ vững phong thái chuyên nghiệp và bình tĩnh dưới áp lực giờ giấc khẩn cấp.',
@@ -268,13 +269,13 @@ const mockProducts = [
       'MC sẽ chủ động liên hệ trực tiếp với bộ phận điều phối âm thanh (Audio Operator) trước sự kiện để khớp nhạc hiệu.'
     ],
     pricingDetails: {
-      baseIncluded: 'Phục vụ trong phạm vi nội thành Hà Nội (Bán kính dưới 15km) với thời gian tối đa 4 tiếng.',
+      baseIncluded: 'Phục vụ trong phạm vi thành phố Hồ Chí Minh (Bán kính dưới 15km) với thời gian tối đa 4 tiếng.',
       overtimeFee: 'Phí phát sinh thêm giờ: 500,000 VNĐ / 1 tiếng phát sinh ngoài kịch bản.',
       distanceFee: 'Chi phí đi xa (Ngoại thành/Tỉnh lân cận): Phụ thu 500,000 VNĐ chi phí di chuyển đường dài + Hỗ trợ phương tiện đi lại hoặc chi phí lưu trú nếu sự kiện kéo dài qua đêm.'
     },
     variants: [
-      { variantId: 'v3_vn_male', name: 'MC Nam - Tiếng Việt', colorCode: '#00008B', variantImg: '/img/mc-nam-vn.png', priceModifier: 0 },
-      { variantId: 'v3_bilingual', name: 'MC Song ngữ (Anh - Việt)', colorCode: '#4B0082', variantImg: '/img/mc-song-ngu.png', priceModifier: 1500000 }
+      { variantId: 'v3_vn_male', name: 'MC - Tiếng Việt', colorCode: '#00008B', variantImg: '/img/anhMC.png', priceModifier: 0 },
+      { variantId: 'v3_bilingual', name: 'MC Song ngữ (Anh - Việt)', colorCode: '#4B0082', variantImg: '/img/mc_sngu.png', priceModifier: 1500000 }
     ]
   },
   { 
@@ -286,8 +287,8 @@ const mockProducts = [
     reviewsCount: 125,
     category: 'decor',
     unit: 'gói/ngày',
-    location: 'Hà Nội',
-    executionTime: 'Setup trước 6 tiếng',
+    location: 'TP.HCM',
+    executionTime: 'Setup trước 3 tiếng',
     vendorName: 'HoaBinh Events',
     vendorAvatar: '/img/HBGevent.png',
     description: 'Trang trí trọn gói Year End Party hoành tráng cho doanh nghiệp với Backdrop chụp ảnh lớn, thảm đỏ, hiệu ứng ánh sáng sân khấu.',
@@ -312,8 +313,8 @@ const mockProducts = [
       deliveryNotes: 'Miễn phí thi công trong các trung tâm hội nghị nội thành. Các mặt bằng yêu cầu thợ phải setup muộn sau 0h đêm sẽ phụ thu 15% phí tăng ca đêm của đội thợ.'
     },
     variants: [
-      { variantId: 'v4_gatsy', name: 'Concept Đêm Gatsy Thượng Lưu', colorCode: '#333333', variantImg: '/img/yep-gatsy.png', priceModifier: 0 },
-      { variantId: 'v4_neon', name: 'Concept Cyberpunk / Neon Futuristic', colorCode: '#FF00FF', variantImg: '/img/yep-neon.png', priceModifier: 500000 }
+      { variantId: 'v4_gatsy', name: 'Concept Đêm Gatsy Thượng Lưu', colorCode: '#333333', variantImg: '/img/endYear.png', priceModifier: 0 },
+      { variantId: 'v4_neon', name: 'Concept ngoài trời ', colorCode: '#FF00FF', variantImg: '/img/yep-ngoaitro.png', priceModifier: 1000000 }
     ]
   },
   { 
@@ -326,7 +327,7 @@ const mockProducts = [
     category: 'media',
     unit: 'gói/buổi',
     location: 'TP.HCM',
-    executionTime: 'Có mặt trước giờ G 30 phút',
+    executionTime: 'Có mặt trước giờ G 1 tiếng ',
     vendorName: 'King Event Media',
     vendorAvatar: '/img/kingMedia.png',
     description: 'Đội ngũ thợ chụp ảnh và quay phim chuyên nghiệp ghi lại những khoảnh khắc đáng nhớ trong sự kiện với thiết bị máy quay 4K hiện đại.',
@@ -347,12 +348,12 @@ const mockProducts = [
     ],
     pricingDetails: {
       baseIncluded: 'Gói chụp/quay tiêu chuẩn trong 4 tiếng nội thành TP.HCM',
-      overtimeFee: 'Phụ thu quay/chụp ngoài giờ: 400,000 VNĐ / 1 tiếng phát sinh.',
+      overtimeFee: 'Phụ thu quay/chụp ngoài giờ: 500,000 VNĐ / 1 tiếng phát sinh.',
       distanceFee: 'Chi phí đi xa (Ngoại thành/Tỉnh lân cận): Phụ thu 500,000 VNĐ chi phí di chuyển đường dài.'
     },
     variants: [
-      { variantId: 'v5_standard', name: 'Cơ bản (1 Máy chụp)', colorCode: '#C0C0C0', variantImg: '/img/media-standard.png', priceModifier: 0 },
-      { variantId: 'v5_premium', name: 'Nâng cấp (1 Chụp + 1 Quay 4K)', colorCode: '#2F4F4F', variantImg: '/img/media-premium.png', priceModifier: 2000000 }
+      { variantId: 'v5_standard', name: 'Cơ bản (1 Máy chụp)', colorCode: '#C0C0C0', variantImg: '/img/kingMedia.png', priceModifier: 0 },
+      { variantId: 'v5_premium', name: 'Nâng cấp (1 Chụp + 1 Quay 4K)', colorCode: '#2F4F4F', variantImg: '/img/quaynangcap.png', priceModifier: 2000000 }
     ]
   },
   { 
@@ -390,7 +391,7 @@ const mockProducts = [
       deliveryNotes: 'Miễn phí giao hàng trong bán kính 5km.'
     },
     variants: [
-      { variantId: 'v6_silk', name: 'Hoa Lụa Cao Cấp', colorCode: '#FFE4E1', variantImg: '/img/flower-silk.png', priceModifier: 0 },
+      { variantId: 'v6_silk', name: 'Hoa Lụa Cao Cấp', colorCode: '#FFE4E1', variantImg: '/img/PDesigh.png', priceModifier: 0 },
       { variantId: 'v6_fresh_local', name: 'Hoa Tươi Nội Địa (Đà Lạt)', colorCode: '#FFD700', variantImg: '/img/flower-local.png', priceModifier: 200000 },
       { variantId: 'v6_fresh_import', name: 'Hoa Tươi Nhập Khẩu (Hà Lan/Ecuador)', colorCode: '#FF0000', variantImg: '/img/flower-import.png', priceModifier: 900000 }
     ]
