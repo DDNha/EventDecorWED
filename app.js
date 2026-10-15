@@ -38,7 +38,7 @@ app.set('view engine', 'html');
 const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
-  password: 'hello', // Điền mật khẩu MySQL của bạn
+  password: '', // Điền mật khẩu MySQL của bạn
   database: 'node_auth_demo', // Tên database cần kết nối
   waitForConnections: true,
   connectionLimit: 10,
@@ -76,12 +76,25 @@ app.get('/about', (req, res) => {
   res.render('aboutus.html');
 });
 
-app.get('/services', (req, res) => {
+app.get('/services',  (req, res) => {
   res.render('eventservices.html');
 });
-app.get('/partner', (req, res) => {
-  res.render('partner.html');
+
+app.get('/partner', async (req, res) => {
+  try{
+const [partners] = await pool.query(
+  `SELECT * From partners`
+);
+  res.render('partner.html', {
+    part: partners
+  });
+
+  }catch(error){
+   console.error(error);
+    res.status(500).send("Lỗi truy vấn database");
+  }
 });
+
 app.get('/contact', (req, res) => {
   res.render('contact.html');
 });
