@@ -19,10 +19,9 @@
     </div>
     <div class="hero-body">
       <h1>{{parts.name}}</h1>
-      <p>
-        Đối tác tin cậy của nhiều thương hiệu lớn như Acer, Vietcombank,
-        Pepsico.
-      </p>
+      <h2>
+        Đối tác tin cậy và   uy tín của chúng tôi
+      </h2>
       <div class="actions">
         <a class="btn primary" href="#lien-he">Liên hệ đối tác</a>
         <a class="btn btn-danger" href="#lien-he">Báo cáo & khiếu nại</a>
@@ -66,20 +65,17 @@
   </div>
 
   <section class="more">
-    <h2>Đối tác khác</h2>
+    <h2 class="text-dark fw-bold">Khám phá đối tác khác</h2>
     <div class="mini-row">
-      <a class="mini" href="#"
+      {% for o in other %}
+      <a class="mini" href="/partner/{{o.id}}"
         ><span
-          >HoaBinh Events<small
-            >Hội nghị, sự kiện và du lịch (MICE)</small
+          >{{o.name}}<small
+            >Khám phá các đối tác tổ chức sự kiện khác</small
           ></span
         ><span aria-hidden="true">›</span></a
       >
-      <a class="mini" href="#"
-        ><span
-          >Á Châu Event<small>Teambuilding, tiệc cuối năm (YEP)</small></span
-        ><span aria-hidden="true">›</span></a
-      >
+      {% endfor %}
     </div>
   </section>
 </div>

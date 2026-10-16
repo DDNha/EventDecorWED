@@ -127,10 +127,14 @@ app.get("/partner/:id", async (req, res) => {
     if (rows.length === 0) {
       return res.status(404).send("Không tìm thấy đối tác");
     }
-
+    const [other] = await pool.query(
+      `SELECT id, name FROM partners where id <> ? limit 2`,
+      [id],
+    );
     return res.render("detailed-partner.html", {
       parts: rows[0],
       spec: rows.map((r) => r.specialty_name),
+      other,
     });
   } catch (error) {
     console.error(error);
