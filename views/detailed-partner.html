@@ -1,0 +1,83 @@
+{% extends "base.html" %} {% block title %}Đối tác{% endblock title %}
+
+    {% block css %}    
+    <link rel="stylesheet" href="/css/detailed.css" />
+    {% endblock css %}
+
+{% block header %}
+<div
+  class="container header-page d-flex justify-content-center align-items-center"
+>
+  <h1 class="fw-bold text-white">Đối tác</h1>
+</div>
+{% endblock header %} {% block content %}
+
+<div class="container mb-4 mt-4">
+  <section class="hero">
+    <div class="logo">
+        <img class="logo-img" src="{{parts.image}}" alt="{{parts.name}}"></img>
+    </div>
+    <div class="hero-body">
+      <h1>{{parts.name}}</h1>
+      <h2>
+        Đối tác tin cậy và   uy tín của chúng tôi
+      </h2>
+      <div class="actions">
+        <a class="btn primary" href="#lien-he">Liên hệ đối tác</a>
+        <a class="btn btn-danger" href="#lien-he">Báo cáo & khiếu nại</a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <div>
+      <article class="card">
+        <h2>Giới thiệu</h2>
+        <p>
+            {{parts.description}}
+        </p>
+      </article>
+
+      <article class="card">
+        <h2>Dịch vụ chính</h2>
+        <div class="services">
+          {% for s in spec %}
+          <div class="svc">
+            <b>{{s}}</b>
+          </div>
+          {% endfor %}
+        </div>
+      </article>
+    </div>
+
+    <aside class="card side" id="lien-he">
+      <h2>Thông tin liên hệ</h2>
+      <dl class="text-white" >
+        <dt>Địa chỉ</dt>
+        <dd>{{parts.address or "Đang cập nhật" }}</dd>
+        <dt>Điện thoại</dt>
+        <dd>{{parts.phone or "Đang cập nhật" }}</dd>
+        <dt>Email</dt>
+        <dd>{{parts.email or "Đang cập nhật" }}</dd>
+      </dl>
+    </aside>
+  </div>
+
+  <section class="more">
+    <h2 class="text-dark fw-bold">Khám phá đối tác khác</h2>
+    <div class="mini-row">
+      {% for o in other %}
+      <a class="mini" href="/partner/{{o.id}}"
+        ><span
+          >{{o.name}}<small
+            >Khám phá các đối tác tổ chức sự kiện khác</small
+          ></span
+        ><span aria-hidden="true">›</span></a
+      >
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+{% endblock content %}
