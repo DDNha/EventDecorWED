@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 const session = require("express-session");
 const mysql = require("mysql2/promise");
 
-// Middleware đọc dữ liệu từ Form POST
+// Middleware đọc dữ liệu từ Form POST và JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -36,7 +36,7 @@ nunjucks.configure("views", {
 });
 app.set("view engine", "html");
 
-//Kết nối SQL
+// Kết nối SQL (Pool)
 const pool = mysql.createPool({
   host: "localhost",
   user: "root",
@@ -60,7 +60,7 @@ testConnection().then();
 
 // Middleware kiểm tra xem người dùng đã đăng nhập chưa
 function isAuthenticated(req, res, next) {
-  if (req.session.user) {
+  if (req.session && req.session.user) {
     return next();
   }
   res.redirect("/");
@@ -182,14 +182,13 @@ app.post("/login", async (req, res) => {
       [email, password],
     );
 
-    console.log(rows);
     if (rows.length > 0) {
       // Đăng nhập thành công, lưu thông tin vào session
       req.session.user = { id: rows[0].id, username: rows[0].username };
       return res.redirect("/");
     } else {
       // Sai tài khoản hoặc mật khẩu
-      return res.send(`<script>alert('Sai email hoặc mật khẩu.');</script>`);
+      return res.send(`<script>alert('Sai email hoặc mật khẩu.'); window.location.href='/login';</script>`);
     }
   } catch (error) {
     console.error("Lỗi đăng nhập:", error);
@@ -210,8 +209,14 @@ app.get("/logout", (req, res) => {
   });
 });
 
+// API lấy thông tin user đang đăng nhập
+app.get('/api/current-user', isAuthenticated, (req, res) => {
+  res.json({ username: req.session.user.username });
+});
+
+
 // ======================================================
-// ===      QUẢN LÝ GIỎ HÀNG - Thiện làm             ===
+// ===           QUẢN LÝ GIỎ HÀNG                     ===
 // ======================================================
 
 // Dữ liệu sản phẩm mẫu để test (sau này thay bằng query DB từ Hi Hi)
@@ -333,6 +338,14 @@ app.get("/api/cart-count", isAuthenticated, (req, res) => {
 });
 
 // ======================================================
+
+// Chi tiết dịch vụ: /services/:id
+const serviceRoutes = require('./js/service_routes');
+app.use('/', serviceRoutes);
+
+// Đặt dịch vụ, thanh toán, lịch sử đơn hàng: /booking/:id, /orders
+const bookingRoutes = require('./js/booking_routes');
+app.use('/', bookingRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server đang chạy thành công tại: http://localhost:${PORT}`);

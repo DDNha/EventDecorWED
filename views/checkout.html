@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Thanh toán - {{ service.title }}{% endblock title %}
+
+{% block content %}
+<style>
+  .ck-wrap { padding: 32px 0 56px; }
+  .ck-card { border: 1px solid #e5e5e5; border-radius: 12px; padding: 20px 22px; }
+  .ck-card h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+  .ck-summary img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; background: #eee; }
+  .ck-row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; }
+  .ck-total { border-top: 1px solid #e5e5e5; margin-top: 8px; padding-top: 12px; font-weight: 700; font-size: 1.2rem; }
+  .ck-total .amount { color: #dc3545; }
+  .ck-method { display: flex; gap: 10px; align-items: center; padding: 12px 14px; border: 1px solid #e5e5e5; border-radius: 10px; cursor: pointer; margin-bottom: 10px; }
+  .ck-method:has(input:checked) { border-color: #dc3545; background: #fff5f5; }
+  .ck-pay { border-radius: 50px; padding: 12px 28px; width: 100%; }
+  @media (min-width: 992px) { .ck-summary { position: sticky; top: 24px; } }
+</style>
+
+<div class="container ck-wrap">
+  <nav class="sd-breadcrumb mb-3" aria-label="breadcrumb">
+    <a href="/services/{{ service.id }}" class="text-secondary text-decoration-none">← Quay lại dịch vụ</a>
+  </nav>
+  <h1 class="h3 fw-bold mb-4">Thanh toán</h1>
+
+  {% if errors.length %}
+  <div class="alert alert-danger" role="alert">
+    <ul class="mb-0">
+      {% for e in errors %}<li>{{ e }}</li>{% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <form method="post" action="/booking/{{ service.id }}/pay" class="row g-4">
+    <div class="col-12 col-lg-7">
+      <div class="ck-card mb-4">
+        <h2>Thông tin liên hệ</h2>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="name">Họ và tên</label>
+            <input class="form-control" id="name" name="name" value="{{ form.name }}" required>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="phone">Số điện thoại</label>
+            <input class="form-control" id="phone" name="phone" type="tel" value="{{ form.phone }}" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="ck-card mb-4">
+        <h2>Thông tin sự kiện</h2>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="date">Ngày tổ chức</label>
+            <input class="form-control" id="date" name="date" type="date" value="{{ form.date }}" required>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="time">Giờ bắt đầu</label>
+            <input class="form-control" id="time" name="time" type="time" value="{{ form.time }}">
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="address">Địa điểm tổ chức</label>
+            <input class="form-control" id="address" name="address" value="{{ form.address }}" required>
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="note">Ghi chú cho đối tác (chủ đề, màu sắc...)</label>
+            <textarea class="form-control" id="note" name="note" rows="3">{{ form.note }}</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="ck-card">
+        <h2>Phương thức thanh toán</h2>
+        {% for key, label in methods %}
+        <label class="ck-method">
+          <input type="radio" name="method" value="{{ key }}" {% if form.method == key or (not form.method and loop.first) %}checked{% endif %}>
+          <span>{{ label }}</span>
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-5">
+      <div class="ck-card ck-summary">
+        <h2>Đơn hàng của bạn</h2>
+        <img src="{{ service.image }}" alt="{{ service.title }}" class="mb-3">
+        <div class="fw-semibold mb-1">{{ service.title }}</div>
+        <div class="text-secondary small mb-3">Đối tác: {{ service.partner }} · {{ service.duration }}</div>
+        <div class="ck-row"><span>Giá dịch vụ</span><span>{{ service.price | vnd }} VNĐ</span></div>
+        <div class="ck-row ck-total"><span>Tổng cộng</span><span class="amount">{{ service.price | vnd }} VNĐ</span></div>
+        <button type="submit" class="btn btn-danger ck-pay mt-3">Thanh toán {{ service.price | vnd }} VNĐ</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock content %}

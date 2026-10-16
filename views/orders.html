@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Lịch sử đặt hàng{% endblock title %}
+
+{% block content %}
+<style>
+  .od-wrap { padding: 32px 0 56px; }
+  .od-card { border: 1px solid #e5e5e5; border-radius: 12px; padding: 20px 22px; margin-bottom: 20px; }
+  .od-card.is-new { border-color: #198754; }
+  .od-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .od-body { display: flex; gap: 16px; }
+  .od-body img { width: 120px; aspect-ratio: 4/3; object-fit: cover; border-radius: 10px; background: #eee; }
+  .od-meta { color: #555; font-size: .92rem; }
+  .od-price { color: #dc3545; font-weight: 700; }
+
+  .od-progress { list-style: none; display: flex; padding: 0; margin: 22px 0 0; }
+  .od-progress li { flex: 1; text-align: center; position: relative; font-size: .85rem; color: #8a8a8a; }
+  .od-progress li::before {
+    content: ""; display: block; width: 18px; height: 18px; margin: 0 auto 8px;
+    border-radius: 50%; background: #d9d9d9; position: relative; z-index: 1;
+  }
+  .od-progress li::after {
+    content: ""; position: absolute; top: 8px; left: -50%; width: 100%; height: 2px; background: #d9d9d9;
+  }
+  .od-progress li:first-child::after { display: none; }
+  .od-progress li.done { color: #198754; }
+  .od-progress li.done::before, .od-progress li.done::after { background: #198754; }
+  .od-progress li.current { font-weight: 700; }
+  .od-progress li.current::before { box-shadow: 0 0 0 4px rgba(25, 135, 84, .2); }
+
+  .badge-status { font-size: .8rem; padding: 6px 12px; border-radius: 50px; }
+  @media (max-width: 575px) {
+    .od-body { flex-direction: column; }
+    .od-body img { width: 100%; }
+    .od-progress li { font-size: .75rem; }
+  }
+</style>
+
+<div class="container od-wrap">
+  <h1 class="h3 fw-bold mb-4">Lịch sử đặt hàng</h1>
+
+  {% if newId %}
+  <div class="alert alert-success" role="alert">
+    Thanh toán thành công. Đơn hàng #{{ newId }} đã được gửi tới đối tác.
+  </div>
+  {% endif %}
+
+  {% if not orders.length %}
+  <div class="text-center py-5">
+    <p class="text-secondary">Bạn chưa có đơn hàng nào.</p>
+    <a href="/services" class="btn btn-danger rounded-pill px-4">Xem dịch vụ</a>
+  </div>
+  {% endif %}
+
+  {% for o in orders %}
+  <article class="od-card {% if o.id == newId %}is-new{% endif %}">
+    <div class="od-head">
+      <div>
+        <strong>Đơn #{{ o.id }}</strong>
+        <span class="text-secondary ms-2">{{ o.createdAt.toLocaleDateString('vi-VN') }}</span>
+      </div>
+      {% if o.step == steps.length - 1 %}
+        <span class="badge bg-success badge-status">Hoàn thành</span>
+      {% else %}
+        <span class="badge bg-warning text-dark badge-status">{{ steps[o.step] }}</span>
+      {% endif %}
+    </div>
+
+    <div class="od-body">
+      <img src="{{ o.image }}" alt="{{ o.title }}">
+      <div class="od-meta">
+        <div class="fw-semibold text-body mb-1">{{ o.title }}</div>
+        <div>Đối tác: {{ o.partner }}</div>
+        <div>Ngày tổ chức: {{ o.date }}{% if o.time %} lúc {{ o.time }}{% endif %}</div>
+        <div>Địa điểm: {{ o.address }}</div>
+        <div>Thanh toán: {{ o.method }}</div>
+        <div class="od-price mt-1">{{ o.price | vnd }} VNĐ</div>
+      </div>
+    </div>
+
+    <ol class="od-progress" aria-label="Tiến độ đơn hàng">
+      {% for s in steps %}
+      <li class="{% if loop.index0 <= o.step %}done{% endif %}{% if loop.index0 == o.step %} current{% endif %}">
+        {{ s }}
+      </li>
+      {% endfor %}
+    </ol>
+
+    {% if o.step < steps.length - 1 %}
+    <!-- Nút thử giao diện: xoá khi đã có trang cho đối tác/admin -->
+    <form method="post" action="/orders/{{ o.id }}/advance" class="mt-3 text-end">
+      <button class="btn btn-sm btn-outline-secondary" type="submit">Chuyển bước tiếp (demo)</button>
+    </form>
+    {% endif %}
+  </article>
+  {% endfor %}
+</div>
+{% endblock content %}
