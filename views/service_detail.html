@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %}{{ service.title }}{% endblock title %}
+
+{% block content %}
+<style>
+  .sd-wrap { padding: 32px 0 56px; }
+  .sd-breadcrumb { font-size: .9rem; margin-bottom: 20px; }
+  .sd-breadcrumb a { color: #6c757d; text-decoration: none; }
+  .sd-breadcrumb a:hover { color: #dc3545; }
+
+  .sd-image {
+    width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+    border-radius: 16px; background: #eee;
+  }
+  .sd-title { font-weight: 700; font-size: 1.9rem; line-height: 1.3; margin-bottom: 10px; }
+  .sd-rating { color: #f5a623; font-weight: 600; margin-bottom: 14px; }
+  .sd-rating .count { color: #6c757d; font-weight: 400; margin-left: 4px; }
+  .sd-price { font-size: 1.8rem; font-weight: 700; color: #dc3545; margin-bottom: 16px; }
+  .sd-short { color: #444; max-width: 60ch; margin-bottom: 20px; }
+
+  .sd-box {
+    border: 1px solid #e5e5e5; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px;
+  }
+  .sd-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .sd-actions .btn { border-radius: 50px; padding: 10px 28px; }
+
+  .sd-section { margin-top: 44px; }
+  .sd-section h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 16px; }
+  .sd-list { list-style: none; padding: 0; margin: 0; }
+  .sd-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; display: flex; gap: 10px; }
+  .sd-list i { color: #198754; margin-top: 4px; }
+  .sd-desc { max-width: 75ch; line-height: 1.7; color: #333; }
+
+  .sd-related a { text-decoration: none; color: inherit; display: block; }
+  .sd-related img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; }
+  .sd-related .name { font-weight: 600; margin-top: 8px; }
+  .sd-related .price { color: #dc3545; font-weight: 600; }
+  .sd-related a:hover .name { color: #dc3545; }
+</style>
+
+<div class="container sd-wrap">
+  <nav class="sd-breadcrumb" aria-label="breadcrumb">
+    <a href="/">Trang chủ</a> / <a href="/services">Dịch vụ</a> / <span>{{ service.title }}</span>
+  </nav>
+
+  <div class="row g-5">
+    <!-- Ảnh -->
+    <div class="col-12 col-lg-6">
+      <img class="sd-image" src="{{ service.image }}" alt="{{ service.title }}">
+    </div>
+
+    <!-- Thông tin chính -->
+    <div class="col-12 col-lg-6">
+      <h1 class="sd-title">{{ service.title }}</h1>
+
+      <div class="sd-rating">
+        <i class="fa-solid fa-star"></i>
+        {{ service.rating }}
+        <span class="count">({{ service.reviews }} đánh giá)</span>
+      </div>
+
+      <div class="sd-price">{{ service.price | vnd }} VNĐ</div>
+
+      <p class="sd-short">{{ service.short }}</p>
+
+      <div class="sd-box">
+        <div class="mb-2"><i class="fa-regular fa-clock me-2"></i>Thời lượng: {{ service.duration }}</div>
+        <div class="mb-2"><i class="fa-solid fa-location-dot me-2"></i>Khu vực phục vụ: {{ service.area }}</div>
+        <div><i class="fa-solid fa-shop me-2"></i>Đối tác: {{ service.partner }}</div>
+      </div>
+
+      <div class="sd-actions">
+        <a href="/booking/{{ service.id }}" class="btn btn-danger">Đặt dịch vụ</a>
+        <button type="button" class="btn btn-outline-secondary" id="btnSave">
+          <i class="fa-regular fa-bookmark me-1"></i>Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gói bao gồm -->
+  <section class="sd-section">
+    <h2>Gói bao gồm</h2>
+    <ul class="sd-list">
+      {% for item in service.includes %}
+      <li><i class="fa-solid fa-check"></i><span>{{ item }}</span></li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <!-- Mô tả -->
+  <section class="sd-section">
+    <h2>Mô tả chi tiết</h2>
+    <p class="sd-desc">{{ service.description }}</p>
+  </section>
+
+  <!-- Dịch vụ khác -->
+  {% if related %}
+  <section class="sd-section sd-related">
+    <h2>Dịch vụ khác</h2>
+    <div class="row g-4">
+      {% for r in related %}
+      <div class="col-6 col-md-4">
+        <a href="/services/{{ r.id }}">
+          <img src="{{ r.image }}" alt="{{ r.title }}">
+          <div class="name">{{ r.title }}</div>
+          <div class="price">{{ r.price | vnd }} VNĐ</div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</div>
+
+<script>
+  document.getElementById('btnSave').addEventListener('click', function () {
+    var icon = this.querySelector('i');
+    icon.classList.toggle('fa-regular');
+    icon.classList.toggle('fa-solid');
+  });
+</script>
+{% endblock content %}
