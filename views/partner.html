@@ -25,9 +25,9 @@ header %}
 <div class="container mb-4 mt-4 d-flex flex-column align-items-center">
   <h2>Tất cả đối tác</h2>
   <p>Các đối tác được nhiều khách hàng tin tưởng</p>
-  
-<div class="list-partner row row-cols-1 row-cols-md-3 g-4">
-  {% for partner in part %}
+
+  <div class="list-partner row row-cols-1 row-cols-md-3 g-4">
+    {% for partner in part %}
     <div class="col">
       <div class="card-partners card h-100 text-white fs-6">
         <img
@@ -46,11 +46,10 @@ header %}
         </div>
       </div>
     </div>
-  {% else %}
+    {% else %}
     <p>Chưa có đối tác nào.</p>
-  {% endfor %}
-</div>
-
+    {% endfor %}
+  </div>
 </div>
 <div class="container mb-4 mt-4">
   <section class="why" aria-label="Lý do chọn chúng tôi">
