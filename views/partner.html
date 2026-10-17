@@ -25,28 +25,30 @@ header %}
 <div class="container mb-4 mt-4 d-flex flex-column align-items-center">
   <h2>Tất cả đối tác</h2>
   <p>Các đối tác được nhiều khách hàng tin tưởng</p>
-  <div class="list-partner row row-cols-lg-3 row-cols-md-3">
+
+  <div class="list-partner row row-cols-1 row-cols-md-3 g-4">
+    {% for partner in part %}
     <div class="col">
-      <div class="card-partners card text-white fs-6">
-        <img src="..." class="card-img-top" alt="..." />
+      <div class="card-partners card h-100 text-white fs-6">
+        <img
+          src="{{ partner.image }}"
+          class="card-img-top partner-image"
+          alt="{{ partner.name }}"
+        />
 
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ partner.name }}</h5>
 
-          <p class="card-text">
-            Some quick example text to build on the card title.
-          </p>
-
-          <div class="speciality-list d-flex flex-wrap gap-2 my-3">
-            <div class="list-Speciality">Sinh Nhật</div>
-            <div class="list-Speciality">Tiệc Cưới</div>
-            <div class="list-Speciality">Year Party</div>
-          </div>
-
-          <a href="#" class="btn btn-primary">Xem chi tiết</a>
+          <p class="card-text">{{ partner.description }}</p>
+          <a href="/partner/{{ partner.id }}" class="btn btn-primary">
+            Xem chi tiết
+          </a>
         </div>
       </div>
     </div>
+    {% else %}
+    <p>Chưa có đối tác nào.</p>
+    {% endfor %}
   </div>
 </div>
 <div class="container mb-4 mt-4">
